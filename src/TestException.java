@@ -7,13 +7,24 @@ import java.util.Scanner;
 public class TestException {
 
     public static void main(String[] args) {
+        if (args.length < 2) {
+            throw new IllegalArgumentException("argument nums should be greate than 2");
+        }
+        int sum;
+        try {
+            sum = Integer.parseInt(args[0]) + Integer.parseInt(args[1]);
+            System.out.println(args[0] + " + " + args[1] + " = " + sum);
+        } catch (NumberFormatException e) {
+            System.out.println("请输入正确的参数");
+        }
+
         TestException exObj = new TestException();
         int n = exObj.divide(15, 4);
         System.out.println(n);
-        Scanner in = new Scanner(System.in);
-        System.out.println("Enter n");
-        int i = in.nextInt();
-        stackTrace.factorial(i);
+//        Scanner in = new Scanner(System.in);
+//        System.out.println("Enter n");
+//        int i = in.nextInt();
+//        stackTrace.factorial(i);
 
 
 //        exObj.printError();
@@ -27,7 +38,8 @@ public class TestException {
         } catch (ArithmeticException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-            System.out.println("input is 0, Wrong");;
+            System.out.println("input is 0, Wrong");
+            ;
         }
 
         return result;
@@ -41,10 +53,9 @@ public class TestException {
         } catch (SerletException e) {
             Throwable se = new FileFormatException("this is file format error");
             se.initCause(e);
-            throw  e;
+            throw e;
         }
     }
-
 
 
 }
