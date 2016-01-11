@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by Amysue on 2016/1/5.
@@ -21,8 +20,8 @@ public class TestObj {
         System.out.println(s1 == s2);
         System.out.println(s1.equals(s2));
 
-        Person p3 = new Person(3, "S");
-        Person p4 = new Person(3, "S");
+        Person p3 = new Person(4, "ss");
+        Person p4 = new Person(4, "sa");
 
         System.out.println(p3 == p4);
         System.out.println(p3.equals(p4));
@@ -38,47 +37,15 @@ public class TestObj {
         books[3] = new Book("jsp");
         Person p5 = new Person(5, "Eric", books);
         p5.readBook();
+        List<Person> persons = new ArrayList<>();
+        Collections.addAll(persons, p3, p5, p1, p2, p4);
+        Person.printPersons(persons);
+        Collections.sort(persons);
+        Person.printPersons(persons);
+        Collections.sort(persons, Person.NameComparator);
+        Person.printPersons(persons);
     }
 
-}
-
-class Person {
-    int id;
-    String name;
-    Book[] books;
-
-    public Person (int aId, String aName) {
-        id = aId;
-        name = aName;
-    }
-
-    public Person(int id, String name, Book[] books) {
-        this(id, name);
-        this.books = books;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        Person pObj = (Person) obj;
-        return ( pObj.id == this.id && pObj.name.equals(name));
-    }
-
-    @Override
-    public int hashCode() {
-        return 11 * new Integer(id) + 7 * Objects.hashCode(name);
-    }
-
-    @Override
-    public String toString() {
-        return "id = " + id + ", name:" + name;
-    }
-
-    public void readBook() {
-        System.out.println(this.toString() + " is reading:");
-        for(Book b: this.books) System.out.println(b);
-    }
 }
 
 class Book {

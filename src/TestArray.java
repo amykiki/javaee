@@ -5,7 +5,7 @@ import java.util.*;
  */
 public class TestArray {
     public static void main(String[] args) {
-        int[] nums = new int[] {4, 23, 11, 9};
+        int[] nums = new int[]{4, 23, 11, 9};
         int[] nums2 = new int[10];
         int size = 7;
         for (int i = 0; i < size; i++) {
@@ -13,13 +13,13 @@ public class TestArray {
         }
         size--;
         for (int i = 1; i < size; i++) {
-            nums2[i] = nums2[i+1];
+            nums2[i] = nums2[i + 1];
         }
         nums2[size] = 0;
         System.out.println(Arrays.toString(nums2));
 
         for (int i = size; i > 1; i--) {
-            nums2[i] = nums2[i-1];
+            nums2[i] = nums2[i - 1];
         }
         nums2[1] = 2;
         System.out.println(Arrays.toString(nums));
@@ -86,6 +86,12 @@ public class TestArray {
 
         while (!pq.isEmpty()) {
             System.out.println(pq.remove());
+        }
+        List<Integer> list2 = new ArrayList<>();
+        Collections.addAll(list2, 2, 3, 4, 6, 7, 4, 7, 9);
+        list2.add(10);
+        for (int i : list2) {
+            System.out.println(i);
         }
 
     }
