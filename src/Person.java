@@ -1,11 +1,10 @@
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Objects;
 
-/**
- * Created by Amysue on 2016/1/11.
- */
-public class Person implements Comparable<Person> {
+
+public class Person implements Serializable, Comparable<Person>{
     private int id;
     private String name;
     private Book[] books;
@@ -29,7 +28,7 @@ public class Person implements Comparable<Person> {
 
     @Override
     public int hashCode() {
-        return 11 * new Integer(id) + 7 * Objects.hashCode(name);
+        return (11 * id) + (7 * Objects.hashCode(name));
     }
 
     @Override
