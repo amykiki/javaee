@@ -9,9 +9,11 @@ public class MainTest {
 //        af.showFrame();
 //        SwingFrame sf = new SwingFrame();
 //        sf.TestPanel();
-        LoginForm lf = new LoginForm(400, 200);
-        lf.TestLogin();
-//        ChatForm cf = new ChatForm(500, 600);
+//        LoginForm lf = new LoginForm(400, 200);
+//        lf.TestLogin();
+//        ChatForm cf = new ChatForm(400, 600);
 //        cf.TestChat();
+        Graph1 gp1 = new Graph1(400, 400);
+        gp1.PaintGP();
     }
 }
