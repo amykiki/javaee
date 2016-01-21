@@ -5,9 +5,15 @@ package Test.MultilThread;
  */
 public class RunThread implements Runnable{
     private String name;
+    private int index;
+    private boolean flag = true;
 
     public RunThread(String name) {
         this.name = name;
+    }
+
+    public RunThread() {
+        this.name = "Runnable";
     }
 
     public void begin() {
@@ -16,8 +22,23 @@ public class RunThread implements Runnable{
     }
     @Override
     public void run() {
-        for (int i = 0; i < 100; i++) {
-            System.out.println(Thread.currentThread().getName() + ": " + i);
+        for (; index < 2000; index++) {
+            if (!flag) break;
+            System.out.println("--------------------------" + Thread.currentThread().getName() + ": " + index);
+//            try {
+//                Thread.sleep(50);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
         }
+    }
+
+    public int getIndex() {
+        System.out.println("index = " + index);
+        return index;
+    }
+
+    public void stopThread() {
+        flag = false;
     }
 }
