@@ -21,6 +21,7 @@ public class CenterLoc {
         yLoc = (height - y)/2;
 
         cp.setLocation(xLoc, yLoc);
+        cp.setSize(x, y);
     }
 
     public int getxLoc() {
