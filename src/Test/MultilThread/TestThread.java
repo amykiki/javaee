@@ -1,5 +1,9 @@
 package Test.MultilThread;
 
+import Test.MultilThread.produce.Cooker;
+import Test.MultilThread.produce.Customer;
+import Test.MultilThread.produce.Disk;
+
 /**
  * Created by Amysue on 2016/1/20.
  */
@@ -57,10 +61,16 @@ public class TestThread {
 //        tdsc1.start();
 //        tdsc2.start();
 
-        //===========================DeadLock====================================
-        DeadLock dl = new DeadLock();
-        new Thread(dl, "Amy").start();
-        new Thread(dl, "Kevin").start();
+//        DeadLock dl = new DeadLock();
+//        new Thread(dl, "Amy").start();
+//        new Thread(dl, "Kevin").start();
+
+        //===========================Producer & Consumer====================================
+        Disk d = new Disk();
+        Cooker co = new Cooker("Amy", d);
+        Customer cu = new Customer("Kevin", d);
+        new Thread(co).start();
+        new Thread(cu).start();
     }
 
 }
