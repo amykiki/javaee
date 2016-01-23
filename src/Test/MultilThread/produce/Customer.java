@@ -38,9 +38,6 @@ public class Customer implements Runnable {
     public void run() {
         while (true) {
             eat();
-            if (disk.isEnd()) {
-                break;
-            }
         }
     }
 
