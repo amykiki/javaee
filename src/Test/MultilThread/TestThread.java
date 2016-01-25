@@ -152,8 +152,8 @@ public class TestThread {
 //        d.setFood("4");
 //        d.setFood("5");
 //        d.setFood("6");
-        Cooker co = new Cooker("Amy", d, 1000);
-        Customer cu = new Customer("Kevin", d, 4000);
+        Cooker co = new Cooker("Amy", d, 4000);
+        Customer cu = new Customer("Kevin", d, 2000);
 
         new Thread(co).start();
         Thread.sleep(8000);

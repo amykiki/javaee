@@ -31,6 +31,7 @@ public class Disk {
                     System.out.println("Customer is waiting...");
                     food.notify();
                     food.wait();
+                    System.out.println("Got new meal");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
