@@ -1,12 +1,11 @@
 package Test.network;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -16,6 +15,9 @@ import java.util.*;
 public class Server {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private List<ServerThread> clients;
+    public static final int    PORT             = 5656;
+    public static final String DISCONNECT_TOKEN = "exit";
+    public static final String SERVER_CLOSE     = "SERVER CLOSED";
 
     public static void main(String[] args) {
         Server s = new Server();
@@ -27,7 +29,7 @@ public class Server {
         Socket       sClient = null;
 
         try {
-            ss = new ServerSocket(5656);
+            ss = new ServerSocket(PORT);
             clients = new ArrayList<>();
             while (true) {
                 sClient = ss.accept();
@@ -70,8 +72,8 @@ public class Server {
 
         private void stop() {
             shutdown = true;
-            send("LEAVE");
             clients.remove(this);
+            send("LEAVE");
         }
 
         private void send(String msg) {
@@ -105,8 +107,8 @@ public class Server {
             System.out.println(clientName + " CONNECT");
             send("Login in");
             while ((msg = in.nextLine()) != null) {
-                if (msg.equalsIgnoreCase("exit")) {
-                    out.println("SERVER CLOSED");
+                if (msg.equals(DISCONNECT_TOKEN)) {
+                    out.println(SERVER_CLOSE);
                     stop();
                     break;
                 }
