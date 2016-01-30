@@ -1,3 +1,5 @@
+package Test.util;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
@@ -10,7 +12,6 @@ public class Person implements Serializable, Comparable<Person> {
     private String gender;
     private int    age;
     private double salary;
-    private Book[] books;
 
     public int getAge() {
         return age;
@@ -68,10 +69,6 @@ public class Person implements Serializable, Comparable<Person> {
 
     }
 
-    public Person(int id, String name, Book[] books) {
-        this(id, name);
-        this.books = books;
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -89,11 +86,6 @@ public class Person implements Serializable, Comparable<Person> {
     @Override
     public String toString() {
         return "id = " + id + ", name:" + name;
-    }
-
-    public void readBook() {
-        System.out.println(this.toString() + " is reading:");
-        for (Book b : this.books) System.out.println(b);
     }
 
     @Override

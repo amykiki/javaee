@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<bookstore>
+    <book>
+        <title lang="eng">Harry Potter</title>
+        <price>89.99</price>
+        <author>J K. Rowling</author>
+    </book>
+    <book>
+        <title lang="cn">盗墓笔记</title>
+        <price>40.5</price>
+        <author>南派三叔</author>
+    </book>
+    <book>
+        <title lang="eng">learning java</title>
+        <price>75.6</price>
+        <author>Kevin Chen</author>
+    </book>
+    <book>
+        <title lang="jap">Conan</title>
+        <price>55</price>
+        <author>Gosho Aoyama</author>
+    </book>
+    <book>
+        <title lang="eng">Harry Potter and prizon</title>
+        <price>89.99</price>
+        <author>J K. Rowling</author>
+    </book>
+    <book category="COOKING">
+        <title lang="en">Everyday Italian</title>
+        <author>Giada De Laurentiis</author>
+        <year>2005</year>
+        <price>30.00</price>
+    </book>
+
+    <book category="CHILDREN">
+        <title lang="en">Harry Potter</title>
+        <author>J K. Rowling</author>
+        <year>2005</year>
+        <price>29.99</price>
+    </book>
+
+    <book category="WEB">
+        <title lang="en">XQuery Kick Start</title>
+        <author>James McGovern</author>
+        <author>Per Bothner</author>
+        <author>Kurt Cagle</author>
+        <author>James Linn</author>
+        <author>Vaidyanathan Nagarajan</author>
+        <year>2003</year>
+        <price>49.99</price>
+    </book>
+
+    <book category="WEB">
+        <title lang="en">Learning XML</title>
+        <author>Erik T. Ray</author>
+        <year>2003</year>
+        <price>39.95</price>
+    </book>
+</bookstore>
