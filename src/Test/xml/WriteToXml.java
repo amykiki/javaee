@@ -47,7 +47,7 @@ public class WriteToXml {
         }
         String rootPath = WriteToXml.class.getResource("").getPath();
         rootPath = rootPath.replace("out/production/javaee", "src");
-        File      xmlFile = new File(rootPath, "person.xml");
+        File      xmlFile = new File(rootPath, "user.xml");
         XMLWriter writer  = null;
         try {
             xmlFile.createNewFile();
