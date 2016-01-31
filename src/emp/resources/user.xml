@@ -1,6 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <users>
-    <user>
-        <name>amy</name>
-    </user>
+  <user>
+    <name>Kevin</name>
+    <password>8844ki*</password>
+    <nickname>精灵小王子</nickname>
+    <salary>55555.5</salary>
+  </user>
+  <user>
+    <name>Amy</name>
+    <password>123456</password>
+    <nickname>小公主</nickname>
+    <salary>20000.0</salary>
+  </user>
 </users>

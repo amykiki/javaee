@@ -9,6 +9,6 @@ import org.dom4j.Document;
 public class mainTest {
     public static void main(String[] args) {
         XmlUtil xmlU = new XmlUtil();
-        Document uDoc = XmlUtil.getUserDoc();
+        XmlUtil.filePath("user.xml");
     }
 }

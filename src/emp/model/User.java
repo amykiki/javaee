@@ -7,11 +7,16 @@ public class User {
     private String name;
     private String password;
     private String nickname;
+    private double salary;
 
-    public User(String name, String password, String nickname) {
+    public User(String name, String password, String nickname, double salary) {
         this.name = name;
         this.password = password;
         this.nickname = nickname;
+        this.salary = salary;
+    }
+
+    public User() {
     }
 
     public String getName() {
@@ -36,5 +41,18 @@ public class User {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "User " + name + "[password:" + password + ", nickname:" + nickname + ", salary:" + salary + "]";
     }
 }
