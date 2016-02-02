@@ -181,11 +181,12 @@ public class UserPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == jb1) {
                     String[] data = getUserInfo();
-                    if (action.equalsIgnoreCase("add")) {
-                        addUser(data);
-                    }
-                    else {
-                        updateUser(data);
+                    if (data != null) {
+                        if (action.equalsIgnoreCase("add")) {
+                            addUser(data);
+                        } else {
+                            updateUser(data);
+                        }
                     }
                 } else if (e.getSource() == jb2) {
                     resetUser();
@@ -221,6 +222,10 @@ public class UserPanel extends JPanel {
                     msg += " is Empty, re-input";
                 }
                 showMsg(msg);
+                return null;
+            }
+            if (!data[3].matches("^[1-9][0-9]*\\.?[0-9]*$")) {
+                showMsg("Salary must be numbers");
                 return null;
             }
             return data;

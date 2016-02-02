@@ -6,5 +6,11 @@
     <password>5566</password>  
     <nickname>小花花</nickname>  
     <salary>345.7</salary> 
-  </user> 
+  </user>  
+  <user>
+    <name>Amy</name>
+    <password>123amy</password>
+    <nickname>花花小公主</nickname>
+    <salary>88888.0</salary>
+  </user>
 </users>
