@@ -1,6 +1,7 @@
 package emp.test;
 
 import emp.util.XmlUtil;
+import emp.view.ManagerFrame;
 import org.dom4j.Document;
 
 /**
@@ -8,7 +9,7 @@ import org.dom4j.Document;
  */
 public class mainTest {
     public static void main(String[] args) {
-        XmlUtil xmlU = new XmlUtil();
-        XmlUtil.filePath("user.xml");
+        ManagerFrame mf = new ManagerFrame(900, 700);
+        mf.start();
     }
 }

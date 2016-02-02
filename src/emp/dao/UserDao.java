@@ -23,15 +23,16 @@ public class UserDao {
         XmlUtil.write2Xml(xmlName, userDoc);
     }
 
-    public void addUser(User user) {
+    public boolean addUser(User user) {
         checkUser(user, "add");
         User u1 = load(user.getName());
         if (u1 != null) {
             System.out.println(user.getName() + " has alreay be added");
-            return;
+            return false;
         }
         user2Xml(user);
         write();
+        return true;
     }
 
     public void delUser(String name) {
