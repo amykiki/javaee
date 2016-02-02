@@ -96,8 +96,11 @@ public class UserPanel extends JPanel {
 
     private void delUser() {
         int[] rows = jt.getSelectedRows();
+        int count = 0;
         for (int row : rows) {
+            row -= count;
             tbModel.removeRow(row);
+            count++;
         }
 
     }
@@ -222,6 +225,10 @@ public class UserPanel extends JPanel {
                     msg += " is Empty, re-input";
                 }
                 showMsg(msg);
+                return null;
+            }
+            if (!data[0].matches("^[a-zA-z].*")) {
+                showMsg("name must begin with letters");
                 return null;
             }
             if (!data[3].matches("^[1-9][0-9]*\\.?[0-9]*$")) {

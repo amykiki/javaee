@@ -33,7 +33,6 @@ public class MyTableModel extends DefaultTableModel {
     }
 
     public boolean addRowByTable(String[] data) {
-        System.out.println(Arrays.toString(data));
         User u = data2User(data);
         if (ud.addUser(u)) {
             this.addRow(data);
