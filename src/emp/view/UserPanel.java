@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 /**
  * Created by Amysue on 2016/2/2.
@@ -33,6 +32,7 @@ public class UserPanel extends JPanel {
         jt = new JTable(tbModel);
         jt.setRowHeight(25);
         jsp = new JScrollPane(jt);
+        jsp.getViewport().setPreferredSize(new Dimension(650, 450));
         jp2 = new JPanel();
         jp2.add(jsp);
         this.add(jp2, BorderLayout.CENTER);

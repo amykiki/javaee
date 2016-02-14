@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
+    private static final String xmlName = "user";
     private Document userDoc;
     private Element  rootNode;
-    private static final String xmlName = "user";
 
     public UserDao() {
         this.userDoc = XmlUtil.getUserDoc();
@@ -20,7 +20,7 @@ public class UserDao {
     }
 
     private void write() {
-        XmlUtil.write2Xml(xmlName, userDoc);
+        XmlUtil.write2Xml(XmlUtil.xmlUsers, userDoc);
     }
 
     public boolean addUser(User user) {

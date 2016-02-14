@@ -4,7 +4,6 @@ import emp.dao.UserDao;
 import emp.model.User;
 
 import javax.swing.table.DefaultTableModel;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -16,6 +15,7 @@ public class MyTableModel extends DefaultTableModel {
 
     public MyTableModel() {
         ud = new UserDao();
+
         this.addColumn("name");
         this.addColumn("password");
         this.addColumn("nickname");
@@ -61,7 +61,7 @@ public class MyTableModel extends DefaultTableModel {
 
     @Override
     public void removeRow(int row) {
-        String name = (String)getValueAt(row, 0);
+        String name = (String) getValueAt(row, 0);
         ud.delUser(name);
         super.removeRow(row);
 

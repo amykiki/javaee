@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<users> 
+  <user> 
+    <name>harry potter</name>  
+    <password>123456</password>  
+    <nickname>harry</nickname>  
+    <salary>1000.33</salary> 
+  </user>  
+  <user> 
+    <name>Hermione Granger</name>  
+    <password>8888</password>  
+    <nickname>herm11</nickname>  
+    <salary>8888.0</salary> 
+  </user> 
+</users>
