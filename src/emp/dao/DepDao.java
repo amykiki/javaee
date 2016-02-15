@@ -6,12 +6,15 @@ import emp.util.XmlUtil;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Amysue on 2016/2/14.
  */
 public class DepDao {
     private Document depDoc;
-    private Element rootNode;
+    private Element  rootNode;
 
     public DepDao() {
         depDoc = XmlUtil.getDepDoc();
@@ -24,8 +27,8 @@ public class DepDao {
 
     public int addDep(Dep dep) {
         checkDep(dep, "add");
-        String name = dep.getName();
-        Element e = loadByName(name);
+        String  name = dep.getName();
+        Element e    = loadByName(name);
         if (e != null) {
             System.out.println("Department " + name + " has alreay be added");
             return -1;
@@ -49,8 +52,8 @@ public class DepDao {
     }
 
     public boolean delDep(int id) {
-        Dep dep = new Dep(id, "");
-        Element e = checkDep(dep, "delete");
+        Dep     dep = new Dep(id, "");
+        Element e   = checkDep(dep, "delete");
         if (e == null) {
             return false;
         }
@@ -58,6 +61,7 @@ public class DepDao {
         write();
         return true;
     }
+
     public Dep load(int id) {
         Element e = loadById(id);
         if (e != null) {
@@ -66,6 +70,15 @@ public class DepDao {
         } else {
             return null;
         }
+    }
+
+    public List<Dep> loadLists() {
+        List<Element> eles = rootNode.selectNodes("/deps/dep");
+        List<Dep> deps = new ArrayList<>();
+        for (Element e : eles) {
+            deps.add(xml2Dep(e));
+        }
+        return deps;
     }
 
     private Element checkDep(Dep dep, String action) {
@@ -87,9 +100,10 @@ public class DepDao {
         }
         return null;
     }
+
     private Element loadById(int id) {
-        String xmlPath = String .format("/deps/dep[id='%d']", id);
-        Element e = (Element) rootNode.selectSingleNode(xmlPath);
+        String  xmlPath = String.format("/deps/dep[id='%d']", id);
+        Element e       = (Element) rootNode.selectSingleNode(xmlPath);
         if (e == null) {
             return null;
         }
@@ -98,8 +112,8 @@ public class DepDao {
     }
 
     private Element loadByName(String name) {
-        String xmlPath = String .format("/deps/dep[name='%s']", name);
-        Element e = (Element) rootNode.selectSingleNode(xmlPath);
+        String  xmlPath = String.format("/deps/dep[name='%s']", name);
+        Element e       = (Element) rootNode.selectSingleNode(xmlPath);
         if (e == null) {
             return null;
         }

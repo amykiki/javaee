@@ -5,6 +5,8 @@ import emp.model.Dep;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -38,7 +40,7 @@ public class DepDaoTest {
         assertTrue(dd.addDep(dep) > 0);
     }
 
-//    @Ignore
+    @Ignore
     @Test
     public void testUpdateDep() throws Exception {
         Dep dep = new Dep(7, "Hogwarts");
@@ -55,5 +57,14 @@ public class DepDaoTest {
     @Test
     public void testLoad() throws Exception {
         System.out.println(dd.load(3));
+    }
+
+    @Test
+    public void testLoadLists() throws Exception {
+        List<Dep> deps = dd.loadLists();
+        System.out.println(deps.size());
+        for (Dep d : deps) {
+            System.out.println(d);
+        }
     }
 }
