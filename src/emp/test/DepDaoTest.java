@@ -27,7 +27,7 @@ public class DepDaoTest {
 //        System.out.println(dep);
 //    }
 
-    @Ignore
+//    @Ignore
     @Test
     public void testAddDep() throws Exception {
 //        Dep dep = new Dep("Hogwarts");
@@ -36,7 +36,9 @@ public class DepDaoTest {
 //        Dep dep = new Dep("Hufflepuff");
 //        Dep dep = new Dep("Ravenclaw");
 //        Dep dep = new Dep("Forbidden Forest");
-        Dep dep = new Dep("Forbidden Forest");
+//        Dep dep = new Dep("Forbidden Forest");
+//        Dep dep = new Dep("Minister");
+        Dep dep = new Dep("burrow");
         assertTrue(dd.addDep(dep) > 0);
     }
 
@@ -59,6 +61,7 @@ public class DepDaoTest {
         System.out.println(dd.load(3));
     }
 
+    @Ignore
     @Test
     public void testLoadLists() throws Exception {
         List<Dep> deps = dd.loadLists();

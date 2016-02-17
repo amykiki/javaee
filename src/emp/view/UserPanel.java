@@ -12,12 +12,12 @@ public class UserPanel extends JPanel {
     private JLabel  jlb;
     private JButton jb1, jb2, jb3;
     private JPanel jp1, jp2, jp3;
-    private JTable       jt;
-    private JScrollPane  jsp;
-    private MyTableModel tbModel;
-    private buttonClick  btClick;
-    private MyDialog     addDialog;
-    private MyDialog     upDialog;
+    private JTable      jt;
+    private JScrollPane jsp;
+    private userTable   tbModel;
+    private buttonClick btClick;
+    private MyDialog    addDialog;
+    private MyDialog    upDialog;
     public final static int USER_COL = 4;
 
     public UserPanel() {
@@ -28,7 +28,7 @@ public class UserPanel extends JPanel {
         jp1.add(jlb);
         this.add(jp1, BorderLayout.NORTH);
 
-        tbModel = new MyTableModel();
+        tbModel = new userTable();
         jt = new JTable(tbModel);
         jt.setRowHeight(25);
         jsp = new JScrollPane(jt);

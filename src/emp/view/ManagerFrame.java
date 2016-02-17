@@ -17,7 +17,7 @@ public class ManagerFrame extends JFrame {
     private int width, height;
     private Dimension dim;
     private Font font;
-    private JPanel contentPanel, dep, ep, up;
+    private JPanel contentPanel, dp, ep, up;
     public ManagerFrame(int width, int height) throws HeadlessException {
         this.setTitle("信息管理系统");
         this.width = width;
@@ -47,7 +47,7 @@ public class ManagerFrame extends JFrame {
         this.add(jmb, BorderLayout.NORTH);
 
         contentPanel = new JPanel();
-        dep = new deptPanel();
+        dp = new depPanel();
         ep = new empPanel();
         up = new UserPanel();
         this.add(contentPanel, BorderLayout.CENTER);
@@ -85,7 +85,7 @@ public class ManagerFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
             JPanel panel = null;
             if (e.getSource() == jmit1) {
-                panel = dep;
+                panel = dp;
             }
             else if (e.getSource() == jmit2) {
                 panel = ep;
@@ -98,6 +98,14 @@ public class ManagerFrame extends JFrame {
             contentPanel.revalidate();
             contentPanel.repaint();
         }
+    }
+
+    protected static void showMsg(Component cp, String msg) {
+        JOptionPane.showMessageDialog(cp, msg, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    protected static int showConfim(Component cp, String msg) {
+        return JOptionPane.showConfirmDialog(cp, msg, "Confirm", JOptionPane.YES_NO_OPTION);
     }
 
 }

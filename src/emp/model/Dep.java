@@ -37,9 +37,6 @@ public class Dep {
 
     @Override
     public String toString() {
-        return "Dep{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

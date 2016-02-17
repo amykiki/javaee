@@ -1,3 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<emps>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<emps count="3"> 
+  <emp> 
+    <id>1</id>  
+    <name>harry potter</name>  
+    <gender>MALE</gender>  
+    <salary>20000.0</salary>  
+    <depid>2</depid> 
+  </emp>  
+  <emp> 
+    <id>2</id>  
+    <name>Hermione Granger</name>  
+    <gender>FEMALE</gender>  
+    <salary>25000.0</salary>  
+    <depid>2</depid> 
+  </emp>  
+  <emp>
+    <id>3</id>
+    <name>Draco Malfoy</name>
+    <gender>MALE</gender>
+    <salary>12000.0</salary>
+    <depid>4</depid>
+  </emp>
 </emps>

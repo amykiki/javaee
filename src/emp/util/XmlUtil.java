@@ -1,5 +1,6 @@
 package emp.util;
 
+import emp.dao.EmpDao;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.OutputFormat;
@@ -16,8 +17,10 @@ import java.util.TreeMap;
 public class XmlUtil {
     public static final String xmlUsers = "users";
     public static final String xmlDeps  = "deps";
+    public static final String xmlEmps  = "emps";
     private static Document userDoc;
     private static Document depDoc;
+    private static Document empDoc;
 
     public static Document getUserDoc() {
         userDoc = getDoc(xmlUsers, userDoc);
@@ -27,6 +30,11 @@ public class XmlUtil {
     public static Document getDepDoc() {
         depDoc = getDoc(xmlDeps, depDoc);
         return depDoc;
+    }
+
+    public static Document getEmpDoc() {
+        empDoc = getDoc(xmlEmps, empDoc);
+        return empDoc;
     }
 
     private static Document getDoc(String fileName, Document doc) {

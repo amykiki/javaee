@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<deps count="7"> 
+<deps count="10"> 
   <dep> 
     <id>2</id>  
     <name>Gryffindor</name> 
@@ -20,5 +20,9 @@
   <dep> 
     <id>7</id>  
     <name>Hogwarts</name> 
+  </dep>  
+  <dep> 
+    <id>9</id>  
+    <name>Minister</name> 
   </dep> 
 </deps>
