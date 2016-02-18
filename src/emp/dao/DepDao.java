@@ -30,8 +30,7 @@ public class DepDao {
         String  name = dep.getName();
         Element e    = loadByName(name);
         if (e != null) {
-            System.out.println("Department " + name + " has alreay be added");
-            return -1;
+            throw  new empException("Department " + name + " has alreay be added");
         }
         int id = getCount() + 1;
         dep.setId(id);
@@ -46,7 +45,12 @@ public class DepDao {
         if (e == null) {
             return false;
         }
-        e.element("name").setText(dep.getName());
+        String name = dep.getName();
+        Element e2    = loadByName(name);
+        if (e2 != null) {
+            throw  new empException("Department " + name + " has alreay existed");
+        }
+        e.element("name").setText(name);
         write();
         return true;
     }
@@ -94,7 +98,7 @@ public class DepDao {
             }
             Element e = loadById(dep.getId());
             if (e == null) {
-                System.out.println("Can't find Dept: id=" + dep.getId() + ", name= " + dep.getName());
+                throw new empException("Can't find Dept: id=" + dep.getId() + ", name= " + dep.getName());
             }
             return e;
         }

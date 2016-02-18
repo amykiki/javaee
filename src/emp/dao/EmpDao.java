@@ -76,11 +76,7 @@ public class EmpDao {
 
     public List<Emp> loadList() {
         String xpath = "/emps/emp";
-        List<Element> eles = rootNode.selectNodes(xpath);
-        List<Emp> emps = new ArrayList<>();
-        for (Element e : eles) {
-            emps.add(xml2Emp(e));
-        }
+        List<Emp> emps = eles2Emps(xpath);
         return emps;
     }
 
@@ -126,6 +122,38 @@ public class EmpDao {
         return e;
     }
 
+    public List<Emp> multiLoad(int depid, String name) {
+        String xpath = "/emps/emp[";
+        String str1 = "";
+        String str2 = "";
+        if (depid == -1 && name == null) {
+            return loadList();
+        }
+        if (depid > 0) {
+            str1 = "depid=" + depid;
+        }
+        if (name != null && !name.equals("")) {
+            str2 = "contains(name," + name + ")";
+        }
+        if (!str1.equals("") && !str2.equals("")) {
+            xpath += str1 + " and " + str2;
+        } else {
+            xpath += str1 + str2;
+        }
+        xpath += "]";
+        System.out.println(xpath);
+        List<Emp> emps = eles2Emps(xpath);
+        return emps;
+    }
+
+    private List<Emp> eles2Emps(String xpath) {
+        List<Element> eles = rootNode.selectNodes(xpath);
+        List<Emp> emps = new ArrayList<>();
+        for (Element e : eles) {
+            emps.add(xml2Emp(e));
+        }
+        return emps;
+    }
     private void setCount(int count) {
         rootNode.attribute("count").setText(String.valueOf(count));
         return;

@@ -1,9 +1,13 @@
 package emp.view;
 
 import emp.dao.EmpDao;
+import emp.model.Dep;
+import emp.model.Emp;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by Amysue on 2016/2/2.
@@ -19,6 +23,7 @@ public class empPanel extends JPanel {
     private EmpDao ed;
     private JComboBox jcb;
     private depCombo dcb;
+    private depPanel dPanel;
 
     public empPanel() {
         ed = new EmpDao();
@@ -61,5 +66,26 @@ public class empPanel extends JPanel {
         jp3.add(jb2);
         jp3.add(jb3);
         this.add(jp3, BorderLayout.SOUTH);
+    }
+
+    public void setdPanel(depPanel dPanel) {
+        this.dPanel = dPanel;
+    }
+
+    public void refresh(Dep dep, String action) {
+        if (action.equals("del")) {
+            dcb.removeElement(dep);
+        } else if (action.equals("add")) {
+            dcb.addElement(dep);
+        }
+    }
+
+    public void refresh(Dep dep, Dep oldDep, String action) {
+        int index = dcb.getIndexOf(oldDep);
+        dcb.removeElementAt(index);
+        dcb.insertElementAt(dep, index);
+
+        int depid = dep.getId();
+        etm.updateDep(depid, oldDep.getName());
     }
 }

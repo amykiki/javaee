@@ -17,7 +17,10 @@ public class ManagerFrame extends JFrame {
     private int width, height;
     private Dimension dim;
     private Font font;
-    private JPanel contentPanel, dp, ep, up;
+    private JPanel contentPanel;
+    private depPanel dp;
+    private empPanel ep;
+    private UserPanel up;
     public ManagerFrame(int width, int height) throws HeadlessException {
         this.setTitle("信息管理系统");
         this.width = width;
@@ -50,8 +53,9 @@ public class ManagerFrame extends JFrame {
         dp = new depPanel();
         ep = new empPanel();
         up = new UserPanel();
+        dp.setePanel(ep);
+        ep.setdPanel(dp);
         this.add(contentPanel, BorderLayout.CENTER);
-
     }
 
     public void start() {

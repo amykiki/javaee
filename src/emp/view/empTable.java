@@ -27,18 +27,35 @@ public class empTable extends DefaultTableModel{
 
         List<Emp> emps = ed.loadList();
         for (Emp emp : emps) {
-            Vector data = new Vector();
-            data.add(emp.getId());
-            data.add(emp.getName());
-            data.add(emp.getGender());
-            data.add(emp.getSalary());
-            data.add(dd.load(emp.getDepid()).getName());
-            this.addRow(data);
+            addEmpRow(emp);
         }
     }
 
+    private void addEmpRow(Emp emp) {
+        Vector data = new Vector();
+        data.add(emp.getId());
+        data.add(emp.getName());
+        data.add(emp.getGender());
+        data.add(emp.getSalary());
+        data.add(dd.load(emp.getDepid()).getName());
+        this.addRow(data);
+    }
+
+    public void updateDep(int depid, String depname) {
+        List<Emp> emps = ed.multiLoad(depid, null);
+        if (emps.size() > 0) {
+            String newName = dd.load(emps.get(0).getDepid()).getName();
+            for (int i = 0; i < getRowCount(); i++) {
+                String oldName = (String)getValueAt(i, EMPCOL.DEPARTMENT.getCode());
+                if (oldName.equals(depname)) {
+                    setValueAt(newName, i, EMPCOL.DEPARTMENT.getCode());
+                }
+
+            }
+        }
+    }
     public enum EMPCOL {
-        ID(1), NAME(2), GENDER(3), SALARY(4), DEPARTMENT(5);
+        ID(0), NAME(1), GENDER(2), SALARY(3), DEPARTMENT(4);
 
 
         private int code;
@@ -54,4 +71,8 @@ public class empTable extends DefaultTableModel{
         }
     }
 
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return false;
+    }
 }

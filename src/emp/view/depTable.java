@@ -25,38 +25,60 @@ public class depTable extends DefaultTableModel {
 
         List<Dep> deps = dd.loadLists();
         for (Dep dep : deps) {
-            Vector data = new Vector();
-            data.add(dep.getId());
-            data.add(dep.getName());
-            data.add(ed.loadByDepId(dep.getId()));
-            this.addRow(data);
+            addData2Row(dep,ed.loadByDepId(dep.getId()));
         }
 
     }
 
-    @Override
-    public void removeRow(int row) {
+    public Dep removeDep(int row) {
         int id = (int) getValueAt(row, DEPCOL.ID.getCode());
         int count = (int) getValueAt(row, DEPCOL.PEPCOUNT.getCode());
         Dep dep = dd.load(id);
         if (count > 0) {
             ManagerFrame.showMsg(null, dep.getName() + " has employee in it, can't be deleted");
-            return;
+            return null;
         }
         int result = ManagerFrame.showConfim(null, "Are you sure to Delete " + dep.getName());
         if (result == JOptionPane.NO_OPTION) {
-            return;
+            return null;
         }
         dd.delDep(id);
-        super.removeRow(row);
+        this.removeRow(row);
+        return dep;
     }
 
+    private void addData2Row(Dep dep, int count) {
+        Vector data = new Vector();
+        data.add(dep.getId());
+        data.add(dep.getName());
+        data.add(count);
+        this.addRow(data);
+    }
+    public Dep addDep(String name) {
+        Dep dep = new Dep(name);
+        int id = dd.addDep(dep);
+        dep.setId(id);
+        addData2Row(dep, 0);
+        return dep;
+    }
+
+    public Dep updateDep(int row, String name) {
+        int id = (int) getValueAt(row, DEPCOL.ID.getCode());
+        Dep dep = new Dep(id, name);
+        dd.updateDep(dep);
+        this.setValueAt(name, row, DEPCOL.NAME.getCode());
+        return dep;
+    }
     public Dep data2Dep(int row) {
         int id = (int) getValueAt(row, DEPCOL.ID.getCode());
         Dep dep = dd.load(id);
         return dep;
     }
 
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return false;
+    }
 
     public enum  DEPCOL {
         ID(0), NAME(1), PEPCOUNT(2);

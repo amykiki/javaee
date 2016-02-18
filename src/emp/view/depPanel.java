@@ -1,7 +1,7 @@
 package emp.view;
 
 import emp.model.Dep;
-import org.jaxen.function.FalseFunction;
+import emp.model.empException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +20,7 @@ public class depPanel extends JPanel {
     private JPanel jp1, jp2, jp3;
     private MyDialog addDialog;
     private MyDialog upDialog;
+    private empPanel ePanel;
 
     public depPanel() {
         this.setLayout(new BorderLayout());
@@ -55,6 +56,10 @@ public class depPanel extends JPanel {
         upDialog = new MyDialog("update");
     }
 
+    public void setePanel(empPanel ePanel) {
+        this.ePanel = ePanel;
+    }
+
     private class BtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -77,7 +82,11 @@ public class depPanel extends JPanel {
         int count = 0;
         for (int row : rows) {
             row -= count;
-            dtm.removeRow(row);
+            Dep dep = dtm.removeDep(row);
+            if (dep != null) {
+                ePanel.refresh(dep, "del");
+            }
+            count++;
         }
     }
 
@@ -93,13 +102,14 @@ public class depPanel extends JPanel {
         }
         int row    = rows[0];
         Dep oldDep = dtm.data2Dep(row);
-        upDialog.setOldDep(oldDep);
+        upDialog.setUpdate(oldDep, row);
         upDialog.showOldDep();
         upDialog.setVisible(true);
     }
 
     private void addDep() {
         addDialog.setVisible(true);
+        addDialog.resetData();
     }
 
     private class MyDialog extends JDialog {
@@ -107,16 +117,17 @@ public class depPanel extends JPanel {
         private JButton jbt1, jbt2;
         private JLabel jlb1, jlb2;
         private JTextField jtf1, jtf2;
-        private Dep oldDep;
+        private Dep    oldDep;
         private String action;
+        private int selectRow;
 
         public MyDialog(String action) {
             this.action = action;
             this.setModalityType(ModalityType.APPLICATION_MODAL);
             this.setLocationRelativeTo(depPanel.this);
             oldDep = new Dep();
-            int row = 2;
-            int width = 350;
+            int row    = 2;
+            int width  = 350;
             int height = 200;
             this.setTitle("Add New Dept.");
             jbt1 = new JButton("Add Dept");
@@ -155,8 +166,9 @@ public class depPanel extends JPanel {
             this.setSize(width, height);
         }
 
-        public void setOldDep(Dep oldDep) {
+        public void setUpdate(Dep oldDep, int row) {
             this.oldDep = oldDep;
+            this.selectRow = row;
         }
 
         public void showOldDep() {
@@ -167,17 +179,59 @@ public class depPanel extends JPanel {
         public void resetData() {
             if (action.equals("add")) {
                 jtf2.setText("");
-            }
-            else {
+            } else {
                 jtf2.setText(oldDep.getName());
             }
+        }
+
+        private String getInfo() {
+            String str = jtf2.getText();
+            if (!str.matches("^[a-zA-Z]\\w*(?:\\s\\w+)*")) {
+                throw new empException("Dept name must begins with charaters");
+            }
+            return str;
+        }
+
+        private void addDep() {
+            Dep dep = null;
+            try {
+                String name = getInfo();
+                dep = dtm.addDep(name);
+            } catch (empException e) {
+                ManagerFrame.showMsg(this, e.getMessage());
+            }
+            if (dep != null) {
+                ePanel.refresh(dep, "add");
+            }
+            resetData();
+            return;
+        }
+
+        private void updateDep() {
+            Dep dep = null;
+            try {
+                String name = getInfo();
+                dep = dtm.updateDep(selectRow, name);
+            } catch (empException e) {
+                ManagerFrame.showMsg(this, e.getMessage());
+            }
+            if (dep != null) {
+                ePanel.refresh(dep, oldDep, "update");
+            }
+            resetData();
+            this.setVisible(false);
+            return;
         }
 
         private class diaListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == jbt1) {
-                    System.out.println("OK");
+                    if (MyDialog.this.action.equals("add")) {
+                        addDep();
+                    } else {
+                        updateDep();
+                    }
                 } else if (e.getSource() == jbt2) {
                     resetData();
                 }

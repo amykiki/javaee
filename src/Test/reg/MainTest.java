@@ -17,6 +17,12 @@ public class MainTest {
 //        System.out.println("0".matches("\\d||[1-2]\\d||3[0-5]"));
 //        System.out.println("192.168.22.123".matches("1?\\d{0,2}"));
 
+        String str33 = "Diagon Alley";
+        if (str33.matches("^[a-zA-Z]\\w*(?:\\s\\w+)*")) {
+            System.out.println("true");
+        } else {
+            System.out.println("failed");
+        }
         Pattern p = Pattern.compile("(\\d{2})(\\d{1})");
         Matcher m = p.matcher("22228858-3333-4444");
         System.out.println(m.matches());

@@ -39,4 +39,27 @@ public class Dep {
     public String toString() {
         return name;
     }
+
+    @Override
+    public int hashCode() {
+        return new Integer(id).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+        Dep other = (Dep) obj;
+        if (this.getId() == other.getId()) {
+            return true;
+        }
+        return false;
+    }
 }
