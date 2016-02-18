@@ -14,7 +14,7 @@ public class UserPanel extends JPanel {
     private JPanel jp1, jp2, jp3;
     private JTable      jt;
     private JScrollPane jsp;
-    private userTable   tbModel;
+    private UserTable   tbModel;
     private buttonClick btClick;
     private MyDialog    addDialog;
     private MyDialog    upDialog;
@@ -28,7 +28,7 @@ public class UserPanel extends JPanel {
         jp1.add(jlb);
         this.add(jp1, BorderLayout.NORTH);
 
-        tbModel = new userTable();
+        tbModel = new UserTable();
         jt = new JTable(tbModel);
         jt.setRowHeight(25);
         jsp = new JScrollPane(jt);

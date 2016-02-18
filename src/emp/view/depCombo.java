@@ -9,10 +9,10 @@ import java.util.List;
 /**
  * Created by Amysue on 2016/2/17.
  */
-public class depCombo extends DefaultComboBoxModel<Dep> {
+public class DepCombo extends DefaultComboBoxModel<Dep> {
     private DepDao dd;
 
-    public depCombo(int allDep) {
+    public DepCombo(int allDep) {
         dd = new DepDao();
         if (allDep == 1) {
             this.addElement(new Dep(-1, "All"));
@@ -21,6 +21,12 @@ public class depCombo extends DefaultComboBoxModel<Dep> {
         for (Dep dep : deps) {
             this.addElement(dep);
         }
+    }
+
+    public Dep selectDep(int depId) {
+        Dep dep = dd.load(depId);
+        setSelectedItem(dep);
+        return dep;
     }
 
 }

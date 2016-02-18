@@ -4,6 +4,7 @@ import emp.dao.DepDao;
 import emp.dao.EmpDao;
 import emp.model.Dep;
 import emp.model.Emp;
+import emp.util.Gender;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
@@ -12,11 +13,11 @@ import java.util.Vector;
 /**
  * Created by Amysue on 2016/2/17.
  */
-public class empTable extends DefaultTableModel{
+public class EmpTable extends DefaultTableModel{
     private EmpDao ed;
     private DepDao dd;
 
-    public empTable() {
+    public EmpTable() {
         ed = new EmpDao();
         dd = new DepDao();
 
@@ -43,7 +44,7 @@ public class empTable extends DefaultTableModel{
     }
 
     public void updateDep(int depid, String depname) {
-        List<Emp> emps = ed.multiLoad(depid, null);
+        List<Emp> emps = ed.multiLoad(depid, "");
         if (emps.size() > 0) {
             String newName = dd.load(emps.get(0).getDepid()).getName();
             for (int i = 0; i < getRowCount(); i++) {
@@ -82,6 +83,7 @@ public class empTable extends DefaultTableModel{
         int id = (int)getValueAt(row, EMPCOL.ID.getCode());
         return id;
     }
+
     private String getDepName(int row) {
         String name = (String)getValueAt(row, EMPCOL.DEPARTMENT.getCode());
         return name;
@@ -100,6 +102,32 @@ public class empTable extends DefaultTableModel{
         return 0;
     }
 
+    public void addEmp(Emp emp) {
+        int id = ed.addEmp(emp);
+        emp.setId(id);
+        addEmpRow(emp);
+    }
+
+    public void updateEmp(Emp emp, int selectRow) {
+        ed.updateEmp(emp);
+        setValueAt(emp.getName(), selectRow, EMPCOL.NAME.getCode());
+        setValueAt(emp.getGender(), selectRow, EMPCOL.GENDER.getCode());
+        setValueAt(emp.getSalary(), selectRow, EMPCOL.SALARY.getCode());
+        setValueAt(dd.load(emp.getDepid()).getName(), selectRow, EMPCOL.DEPARTMENT.getCode());
+    }
+
+    private Object getObj(int row, EMPCOL empcol) {
+        return getValueAt(row, empcol.getCode());
+    }
+    public Emp getEmp(int selectRow) {
+        Emp emp = new Emp();
+        emp.setId(getId(selectRow));
+        emp.setName(String.valueOf(getObj(selectRow, EMPCOL.NAME)));
+        emp.setGender((Gender)getObj(selectRow, EMPCOL.GENDER));
+        emp.setSalary((Double)(getObj(selectRow, EMPCOL.SALARY)));
+        emp.setDepid(getDepId((String)getObj(selectRow, EMPCOL.DEPARTMENT)));
+        return emp;
+    }
     public enum EMPCOL {
         ID(0), NAME(1), GENDER(2), SALARY(3), DEPARTMENT(4);
 

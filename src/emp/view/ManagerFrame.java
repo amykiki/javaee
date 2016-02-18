@@ -16,10 +16,10 @@ public class ManagerFrame extends JFrame {
     private JMenuBar jmb;
     private int width, height;
     private Dimension dim;
-    private Font font;
-    private JPanel contentPanel;
-    private depPanel dp;
-    private empPanel ep;
+    private Font      font;
+    private JPanel    contentPanel;
+    private DepPanel  dp;
+    private EmpPanel  ep;
     private UserPanel up;
     public ManagerFrame(int width, int height) throws HeadlessException {
         this.setTitle("信息管理系统");
@@ -50,8 +50,8 @@ public class ManagerFrame extends JFrame {
         this.add(jmb, BorderLayout.NORTH);
 
         contentPanel = new JPanel();
-        dp = new depPanel();
-        ep = new empPanel();
+        dp = new DepPanel();
+        ep = new EmpPanel();
         up = new UserPanel();
         dp.setePanel(ep);
         ep.setdPanel(dp);

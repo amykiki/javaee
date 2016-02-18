@@ -2,13 +2,10 @@ package emp.test;
 
 import emp.dao.UserDao;
 import emp.model.User;
-import emp.model.empException;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Amysue on 2016/1/30.
@@ -17,7 +14,7 @@ public class UserDaoTest {
     private UserDao ud = new UserDao();
 
     @Ignore
-//    @Test (expected = empException.class)
+//    @Test (expected = EmpException.class)
     @Test
     public void testAddUser() throws Exception {
         ud.addUser(new User("Kevin", "8844ki*", "精灵小王子", 55555.5));

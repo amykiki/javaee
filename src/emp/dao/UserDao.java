@@ -1,7 +1,7 @@
 package emp.dao;
 
 import emp.model.User;
-import emp.model.empException;
+import emp.model.EmpException;
 import emp.util.XmlUtil;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -100,7 +100,7 @@ public class UserDao {
 
     private void checkUser(User user, String action) {
         if (user == null || user.getName() == null || user.getName().equals("")) {
-            throw new empException("user name is null, can't " + action + " user");
+            throw new EmpException("user name is null, can't " + action + " user");
         }
     }
 

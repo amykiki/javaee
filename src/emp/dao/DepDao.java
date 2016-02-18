@@ -1,7 +1,7 @@
 package emp.dao;
 
 import emp.model.Dep;
-import emp.model.empException;
+import emp.model.EmpException;
 import emp.util.XmlUtil;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -30,7 +30,7 @@ public class DepDao {
         String  name = dep.getName();
         Element e    = loadByName(name);
         if (e != null) {
-            throw  new empException("Department " + name + " has alreay be added");
+            throw  new EmpException("Department " + name + " has alreay be added");
         }
         int id = getCount() + 1;
         dep.setId(id);
@@ -48,7 +48,7 @@ public class DepDao {
         String name = dep.getName();
         Element e2    = loadByName(name);
         if (e2 != null) {
-            throw  new empException("Department " + name + " has alreay existed");
+            throw  new EmpException("Department " + name + " has alreay existed");
         }
         e.element("name").setText(name);
         write();
@@ -97,18 +97,18 @@ public class DepDao {
 
     private Element checkDep(Dep dep, String action) {
         if (dep == null) {
-            throw new empException("null Dep object, can't " + action + " Dept.");
+            throw new EmpException("null Dep object, can't " + action + " Dept.");
         } else if (action.equals("add")) {
             if (dep.getName().equals("") || dep.getName() == null) {
-                throw new empException("NO Dept name, can't add Dept.");
+                throw new EmpException("NO Dept name, can't add Dept.");
             }
         } else {
             if (dep.getId() <= 0) {
-                throw new empException("Dept ID is not legal");
+                throw new EmpException("Dept ID is not legal");
             }
             Element e = loadById(dep.getId());
             if (e == null) {
-                throw new empException("Can't find Dept: id=" + dep.getId() + ", name= " + dep.getName());
+                throw new EmpException("Can't find Dept: id=" + dep.getId() + ", name= " + dep.getName());
             }
             return e;
         }

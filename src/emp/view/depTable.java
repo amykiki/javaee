@@ -13,11 +13,11 @@ import java.util.Vector;
 /**
  * Created by Amysue on 2016/2/17.
  */
-public class depTable extends DefaultTableModel {
+public class DepTable extends DefaultTableModel {
     private DepDao dd;
     private EmpDao ed;
 
-    public depTable() {
+    public DepTable() {
         dd = new DepDao();
         ed = new EmpDao();
         this.addColumn(DEPCOL.ID.name());

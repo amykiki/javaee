@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<deps count="23"> 
+<deps count="31"> 
   <dep> 
     <id>19</id>  
     <name>Ravenclaw</name> 
   </dep>  
   <dep> 
     <id>20</id>  
-    <name>Slytherin</name> 
+    <name>Slytherin1</name> 
+  </dep>  
+  <dep> 
+    <id>24</id>  
+    <name>Gryffindor</name> 
+  </dep>  
+  <dep> 
+    <id>25</id>  
+    <name>Hufflepuff</name> 
+  </dep>  
+  <dep> 
+    <id>26</id>  
+    <name>Diagon Alley</name> 
+  </dep>  
+  <dep> 
+    <id>27</id>  
+    <name>The Burrows</name> 
+  </dep>  
+  <dep> 
+    <id>28</id>  
+    <name>The Three Broomsticks</name> 
+  </dep>  
+  <dep> 
+    <id>29</id>  
+    <name>Hogsmeade Station</name> 
+  </dep>  
+  <dep> 
+    <id>31</id>  
+    <name>Azkaban</name> 
   </dep> 
 </deps>

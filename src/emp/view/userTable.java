@@ -10,10 +10,10 @@ import java.util.Vector;
 /**
  * Created by Amysue on 2016/2/2.
  */
-public class userTable extends DefaultTableModel {
+public class UserTable extends DefaultTableModel {
     private UserDao ud;
 
-    public userTable() {
+    public UserTable() {
         ud = new UserDao();
 
         this.addColumn("name");

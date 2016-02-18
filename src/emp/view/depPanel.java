@@ -1,7 +1,7 @@
 package emp.view;
 
 import emp.model.Dep;
-import emp.model.empException;
+import emp.model.EmpException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,18 +11,18 @@ import java.awt.event.ActionListener;
 /**
  * Created by Amysue on 2016/2/2.
  */
-public class depPanel extends JPanel {
+public class DepPanel extends JPanel {
     private JLabel      jlb;
-    private depTable    dtm;
+    private DepTable    dtm;
     private JTable      jt;
     private JScrollPane jsp;
     private JButton     jb1, jb2, jb3;
     private JPanel jp1, jp2, jp3;
     private MyDialog addDialog;
     private MyDialog upDialog;
-    private empPanel ePanel;
+    private EmpPanel ePanel;
 
-    public depPanel() {
+    public DepPanel() {
         this.setLayout(new BorderLayout());
 
         jlb = new JLabel("Department Infomation Table");
@@ -30,7 +30,7 @@ public class depPanel extends JPanel {
         jp1.add(jlb);
         this.add(jp1, BorderLayout.NORTH);
 
-        dtm = new depTable();
+        dtm = new DepTable();
         jt = new JTable(dtm);
         jt.setRowHeight(23);
         jsp = new JScrollPane(jt);
@@ -56,13 +56,15 @@ public class depPanel extends JPanel {
         upDialog = new MyDialog("update");
     }
 
-    public void setePanel(empPanel ePanel) {
+    public void setePanel(EmpPanel ePanel) {
         this.ePanel = ePanel;
     }
 
     public void refresh(int depid, String action) {
         if (action.equals("del")) {
             dtm.updatePepCount(depid, "del");
+        } else if (action.equals("add")) {
+            dtm.updatePepCount(depid, "add");
         }
     }
 
@@ -130,7 +132,7 @@ public class depPanel extends JPanel {
         public MyDialog(String action) {
             this.action = action;
             this.setModalityType(ModalityType.APPLICATION_MODAL);
-            this.setLocationRelativeTo(depPanel.this);
+            this.setLocationRelativeTo(DepPanel.this);
             oldDep = new Dep();
             int row    = 2;
             int width  = 350;
@@ -193,7 +195,7 @@ public class depPanel extends JPanel {
         private String getInfo() {
             String str = jtf2.getText();
             if (!str.matches("^[a-zA-Z]\\w*(?:\\s\\w+)*")) {
-                throw new empException("Dept name must begins with charaters");
+                throw new EmpException("Dept name must begins with charaters");
             }
             return str;
         }
@@ -203,7 +205,7 @@ public class depPanel extends JPanel {
             try {
                 String name = getInfo();
                 dep = dtm.addDep(name);
-            } catch (empException e) {
+            } catch (EmpException e) {
                 ManagerFrame.showMsg(this, e.getMessage());
             }
             if (dep != null) {
@@ -218,7 +220,7 @@ public class depPanel extends JPanel {
             try {
                 String name = getInfo();
                 dep = dtm.updateDep(selectRow, name);
-            } catch (empException e) {
+            } catch (EmpException e) {
                 ManagerFrame.showMsg(this, e.getMessage());
             }
             if (dep != null) {
@@ -243,8 +245,6 @@ public class depPanel extends JPanel {
                 }
             }
         }
-
-
     }
 
 }

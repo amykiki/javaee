@@ -1,7 +1,7 @@
 package emp.dao;
 
 import emp.model.Emp;
-import emp.model.empException;
+import emp.model.EmpException;
 import emp.util.Gender;
 import emp.util.XmlUtil;
 import org.dom4j.Document;
@@ -26,7 +26,7 @@ public class EmpDao {
         XmlUtil.write2Xml(XmlUtil.xmlEmps, empDoc);
     }
 
-    public boolean addEmp(Emp emp) {
+    public int addEmp(Emp emp) {
         checkEmp(emp, "add");
         int id = getCount() + 1;
         Element nEmp = rootNode.addElement("emp");
@@ -37,7 +37,7 @@ public class EmpDao {
         nEmp.addElement("depid").addText(String.valueOf(emp.getDepid()));
         setCount(id);
         write();
-        return true;
+        return id;
     }
 
     public boolean delEmp(int id) {
@@ -98,14 +98,14 @@ public class EmpDao {
 
     private Element checkEmp(Emp emp, String action) {
         if (emp == null) {
-            throw new empException("Null Emp Object, can't " + action + " Emp.");
+            throw new EmpException("Null Emp Object, can't " + action + " Emp.");
         } else if (action.equals("add")) {
             if (emp.getName() == null || emp.getName().equals("")) {
-                throw new empException("Emp Name is null, can't " + action + " Emp.");
+                throw new EmpException("Emp Name is null, can't " + action + " Emp.");
             }
         } else {
             if (emp.getId() <= 0) {
-                throw new empException("Emp ID is illegal");
+                throw new EmpException("Emp ID is illegal");
             }
             Element e = loadById(emp.getId());
             if (e == null) {
