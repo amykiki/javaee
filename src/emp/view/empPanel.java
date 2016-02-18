@@ -6,6 +6,8 @@ import emp.model.Emp;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 
@@ -13,17 +15,17 @@ import java.util.List;
  * Created by Amysue on 2016/2/2.
  */
 public class empPanel extends JPanel {
-    private JLabel      jlb1, jlb2, jlb3;
+    private JLabel jlb1, jlb2, jlb3;
     private empTable    etm;
     private JTable      jt;
     private JScrollPane jsp;
     private JButton     jb1, jb2, jb3, jbselect;
     private JPanel jp1, jp11, jp12, jp2, jp3;
     private JTextField jtf;
-    private EmpDao ed;
-    private JComboBox jcb;
-    private depCombo dcb;
-    private depPanel dPanel;
+    private EmpDao     ed;
+    private JComboBox  jcb;
+    private depCombo   dcb;
+    private depPanel   dPanel;
 
     public empPanel() {
         ed = new EmpDao();
@@ -66,6 +68,12 @@ public class empPanel extends JPanel {
         jp3.add(jb2);
         jp3.add(jb3);
         this.add(jp3, BorderLayout.SOUTH);
+        btnClick btnListen = new btnClick();
+        jbselect.addActionListener(btnListen);
+        jb1.addActionListener(btnListen);
+        jb2.addActionListener(btnListen);
+        jb3.addActionListener(btnListen);
+
     }
 
     public void setdPanel(depPanel dPanel) {
@@ -88,4 +96,50 @@ public class empPanel extends JPanel {
         int depid = dep.getId();
         etm.updateDep(depid, oldDep.getName());
     }
+
+    private class btnClick implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == jbselect) {
+                getSelect();
+            } else if (e.getSource() == jb1) {
+                addDialog();
+            } else if (e.getSource() == jb2) {
+                updateDialog();
+            } else if (e.getSource() == jb3) {
+                delEmp();
+            }
+        }
+    }
+
+    private void delEmp() {
+        int[] rows = jt.getSelectedRows();
+        if (rows.length == 0) {
+            ManagerFrame.showMsg(this, "You haven't select Empoloyee.");
+            return;
+        }
+        int count = 0;
+        for (int row : rows) {
+            row -= count;
+            int depid = etm.removeEmp(row);
+            if (depid > 0) {
+                count++;
+                dPanel.refresh(depid, "del");
+            }
+        }
+    }
+
+    private void updateDialog() {
+    }
+
+    private void addDialog() {
+    }
+
+    private void getSelect() {
+        Dep    dep   = (Dep) jcb.getSelectedItem();
+        int    depid = dep.getId();
+        String name  = jtf.getText();
+        etm.search(depid, name);
+    }
+
 }

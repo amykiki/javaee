@@ -76,6 +76,16 @@ public class DepDao {
         }
     }
 
+    public Dep load(String name) {
+        Element e = loadByName(name);
+        if (e != null) {
+            Dep dep = xml2Dep(e);
+            return dep;
+        } else {
+            return null;
+        }
+    }
+
     public List<Dep> loadLists() {
         List<Element> eles = rootNode.selectNodes("/deps/dep");
         List<Dep> deps = new ArrayList<>();

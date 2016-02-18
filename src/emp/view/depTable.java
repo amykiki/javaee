@@ -16,6 +16,7 @@ import java.util.Vector;
 public class depTable extends DefaultTableModel {
     private DepDao dd;
     private EmpDao ed;
+
     public depTable() {
         dd = new DepDao();
         ed = new EmpDao();
@@ -25,15 +26,15 @@ public class depTable extends DefaultTableModel {
 
         List<Dep> deps = dd.loadLists();
         for (Dep dep : deps) {
-            addData2Row(dep,ed.loadByDepId(dep.getId()));
+            addData2Row(dep, ed.loadByDepId(dep.getId()));
         }
 
     }
 
     public Dep removeDep(int row) {
-        int id = (int) getValueAt(row, DEPCOL.ID.getCode());
+        int id    = (int) getValueAt(row, DEPCOL.ID.getCode());
         int count = (int) getValueAt(row, DEPCOL.PEPCOUNT.getCode());
-        Dep dep = dd.load(id);
+        Dep dep   = dd.load(id);
         if (count > 0) {
             ManagerFrame.showMsg(null, dep.getName() + " has employee in it, can't be deleted");
             return null;
@@ -54,23 +55,25 @@ public class depTable extends DefaultTableModel {
         data.add(count);
         this.addRow(data);
     }
+
     public Dep addDep(String name) {
         Dep dep = new Dep(name);
-        int id = dd.addDep(dep);
+        int id  = dd.addDep(dep);
         dep.setId(id);
         addData2Row(dep, 0);
         return dep;
     }
 
     public Dep updateDep(int row, String name) {
-        int id = (int) getValueAt(row, DEPCOL.ID.getCode());
+        int id  = (int) getValueAt(row, DEPCOL.ID.getCode());
         Dep dep = new Dep(id, name);
         dd.updateDep(dep);
         this.setValueAt(name, row, DEPCOL.NAME.getCode());
         return dep;
     }
+
     public Dep data2Dep(int row) {
-        int id = (int) getValueAt(row, DEPCOL.ID.getCode());
+        int id  = (int) getValueAt(row, DEPCOL.ID.getCode());
         Dep dep = dd.load(id);
         return dep;
     }
@@ -80,7 +83,26 @@ public class depTable extends DefaultTableModel {
         return false;
     }
 
-    public enum  DEPCOL {
+    public void updatePepCount(int depid, String action) {
+        int row = -1;
+        for (int i = 0; i < getRowCount(); i++) {
+            if ((int) getValueAt(i, DEPCOL.ID.getCode()) == depid) {
+                row = i;
+                break;
+            }
+        }
+        if (row >= 0) {
+            int count = (int) getValueAt(row, DEPCOL.PEPCOUNT.getCode());
+            if (action.equals("del")) {
+                count--;
+            } else if (action.equals("add")) {
+                count++;
+            }
+            setValueAt(count, row, DEPCOL.PEPCOUNT.getCode());
+        }
+    }
+
+    public enum DEPCOL {
         ID(0), NAME(1), PEPCOUNT(2);
 
         private int code;

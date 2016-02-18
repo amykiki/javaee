@@ -60,6 +60,12 @@ public class depPanel extends JPanel {
         this.ePanel = ePanel;
     }
 
+    public void refresh(int depid, String action) {
+        if (action.equals("del")) {
+            dtm.updatePepCount(depid, "del");
+        }
+    }
+
     private class BtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -84,9 +90,9 @@ public class depPanel extends JPanel {
             row -= count;
             Dep dep = dtm.removeDep(row);
             if (dep != null) {
+                count++;
                 ePanel.refresh(dep, "del");
             }
-            count++;
         }
     }
 
@@ -119,7 +125,7 @@ public class depPanel extends JPanel {
         private JTextField jtf1, jtf2;
         private Dep    oldDep;
         private String action;
-        private int selectRow;
+        private int    selectRow;
 
         public MyDialog(String action) {
             this.action = action;

@@ -126,14 +126,14 @@ public class EmpDao {
         String xpath = "/emps/emp[";
         String str1 = "";
         String str2 = "";
-        if (depid == -1 && name == null) {
+        if (depid == -1 && name.equals("")) {
             return loadList();
         }
         if (depid > 0) {
             str1 = "depid=" + depid;
         }
-        if (name != null && !name.equals("")) {
-            str2 = "contains(name," + name + ")";
+        if (!name.equals("")) {
+            str2 = "contains(name,'" + name + "')";
         }
         if (!str1.equals("") && !str2.equals("")) {
             xpath += str1 + " and " + str2;
@@ -141,7 +141,6 @@ public class EmpDao {
             xpath += str1 + str2;
         }
         xpath += "]";
-        System.out.println(xpath);
         List<Emp> emps = eles2Emps(xpath);
         return emps;
     }
