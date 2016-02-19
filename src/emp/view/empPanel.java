@@ -25,6 +25,7 @@ public class EmpPanel extends JPanel {
     private EmpDao     ed;
     private JComboBox  jcb;
     private DepCombo   dcb;
+    private DepCombo   diaDcb;
     private DepPanel   dPanel;
     private MyDialog   addWin;
     private MyDialog   updateWin;
@@ -76,8 +77,9 @@ public class EmpPanel extends JPanel {
         jb2.addActionListener(btnListen);
         jb3.addActionListener(btnListen);
 
-        addWin = new MyDialog("add");
-        updateWin = new MyDialog("update");
+        diaDcb = new DepCombo(0);
+        addWin = new MyDialog("add", diaDcb);
+        updateWin = new MyDialog("update", diaDcb);
 
     }
 
@@ -88,13 +90,15 @@ public class EmpPanel extends JPanel {
     public void refresh(Dep dep, String action) {
         if (action.equals("del")) {
             dcb.removeElement(dep);
-            addWin.getDcmDia().removeElement(dep);
-            updateWin.getDcmDia().removeElement(dep);
+            diaDcb.removeElement(dep);
+//            addWin.getDcmDia().removeElement(dep);
+//            updateWin.getDcmDia().removeElement(dep);
 
         } else if (action.equals("add")) {
             dcb.addElement(dep);
-            addWin.getDcmDia().addElement(dep);
-            updateWin.getDcmDia().addElement(dep);
+            diaDcb.addElement(dep);
+//            addWin.getDcmDia().addElement(dep);
+//            updateWin.getDcmDia().addElement(dep);
         }
     }
 
@@ -103,10 +107,12 @@ public class EmpPanel extends JPanel {
         dcb.removeElementAt(index);
         dcb.insertElementAt(dep, index);
         index--;
-        addWin.getDcmDia().removeElementAt(index);
-        addWin.getDcmDia().insertElementAt(dep, index);
-        updateWin.getDcmDia().removeElementAt(index);
-        updateWin.getDcmDia().insertElementAt(dep, index);
+        diaDcb.removeElementAt(index);
+        diaDcb.insertElementAt(dep, index);
+//        addWin.getDcmDia().removeElementAt(index);
+//        addWin.getDcmDia().insertElementAt(dep, index);
+//        updateWin.getDcmDia().removeElementAt(index);
+//        updateWin.getDcmDia().insertElementAt(dep, index);
 
         int depid = dep.getId();
         etm.updateDep(depid, oldDep.getName());
@@ -186,7 +192,7 @@ public class EmpPanel extends JPanel {
         private int           selectRow;
         private DiaBtnListner dblisner;
 
-        public MyDialog(String diaAction) {
+        public MyDialog(String diaAction, DepCombo dcmDia) {
             this.diaAction = diaAction;
             this.setModalityType(ModalityType.APPLICATION_MODAL);
             this.setLocationRelativeTo(EmpPanel.this);
@@ -222,7 +228,7 @@ public class EmpPanel extends JPanel {
 
             jpDepid = new JPanel();
             jlbDepid = new JLabel("Dept:");
-            dcmDia = new DepCombo(0);
+            this.dcmDia = dcmDia;
             jcbDia = new JComboBox(dcmDia);
             jpDepid.add(jlbDepid);
             jpDepid.add(jcbDia);

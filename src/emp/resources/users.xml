@@ -2,15 +2,21 @@
 
 <users> 
   <user> 
-    <name>harry potter</name>  
+    <name>harry</name>  
     <password>123456</password>  
-    <nickname>harry</nickname>  
+    <nickname>harry potter</nickname>  
     <salary>1000.33</salary> 
   </user>  
   <user> 
-    <name>Hermione Granger</name>  
+    <name>herm</name>  
     <password>8888</password>  
-    <nickname>herm11</nickname>  
+    <nickname>Hermione Granger</nickname>  
     <salary>8888.0</salary> 
-  </user> 
+  </user>  
+  <user>
+    <name>amy</name>
+    <password>411516</password>
+    <nickname>Zou Shumin</nickname>
+    <salary>888888.0</salary>
+  </user>
 </users>

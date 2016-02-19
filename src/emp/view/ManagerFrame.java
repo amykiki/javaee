@@ -1,10 +1,13 @@
 package emp.view;
 
+import emp.model.User;
+
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.Enumeration;
 
 /**
@@ -12,16 +15,19 @@ import java.util.Enumeration;
  */
 public class ManagerFrame extends JFrame {
     private JMenu jm1, jm2, jm3;
-    private JMenuItem jmit1, jmit2, jmit3;
+    private JMenuItem jmit1, jmit2, jmit3, jmit4;
     private JMenuBar jmb;
-    private int width, height;
-    private Dimension dim;
-    private Font      font;
-    private JPanel    contentPanel;
-    private DepPanel  dp;
-    private EmpPanel  ep;
-    private UserPanel up;
-    public ManagerFrame(int width, int height) throws HeadlessException {
+    private int      width, height;
+    private Dimension    dim;
+    private Font         font;
+    private JPanel       contentPanel;
+    private WelcomePanle wp;
+    private DepPanel     dp;
+    private EmpPanel     ep;
+    private UserPanel    up;
+    private User         loginUser;
+
+    public ManagerFrame(User loginUser, int width, int height) throws HeadlessException {
         this.setTitle("信息管理系统");
         this.width = width;
         this.height = height;
@@ -39,10 +45,13 @@ public class ManagerFrame extends JFrame {
         jmit2.addActionListener(itemListen);
         jmit3 = new JMenuItem("查询员工信息");
         jmit3.addActionListener(itemListen);
+        jmit4 = new JMenuItem("退出系统");
+        jmit4.addActionListener(itemListen);
 
         jm1.add(jmit1);
         jm2.add(jmit2);
         jm3.add(jmit3);
+        jm3.add(jmit4);
         jmb = new JMenuBar();
         jmb.add(jm1);
         jmb.add(jm2);
@@ -50,11 +59,14 @@ public class ManagerFrame extends JFrame {
         this.add(jmb, BorderLayout.NORTH);
 
         contentPanel = new JPanel();
+        this.loginUser = loginUser;
+        wp = new WelcomePanle(loginUser);
         dp = new DepPanel();
         ep = new EmpPanel();
         up = new UserPanel();
         dp.setePanel(ep);
         ep.setdPanel(dp);
+        contentPanel.add(wp);
         this.add(contentPanel, BorderLayout.CENTER);
     }
 
@@ -66,17 +78,17 @@ public class ManagerFrame extends JFrame {
     }
 
     public void setCenter() {
-        int xLoc = (dim.width - width)/2;
-        int yLoc = (dim.height - height)/2;
+        int xLoc = (dim.width - width) / 2;
+        int yLoc = (dim.height - height) / 2;
         this.setLocation(xLoc, yLoc);
         this.setSize(width, height);
     }
 
     public void setUIFont() {
-        FontUIResource f = new FontUIResource(font);
-        Enumeration keys = UIManager.getDefaults().keys();
+        FontUIResource f    = new FontUIResource(font);
+        Enumeration    keys = UIManager.getDefaults().keys();
         while (keys.hasMoreElements()) {
-            Object key = keys.nextElement();
+            Object key   = keys.nextElement();
             Object value = UIManager.get(key);
             if (value != null && value instanceof FontUIResource) {
                 UIManager.put(key, f);
@@ -87,20 +99,22 @@ public class ManagerFrame extends JFrame {
     private class itemActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JPanel panel = null;
-            if (e.getSource() == jmit1) {
-                panel = dp;
+            if (e.getSource() == jmit4) {
+                ManagerFrame.this.dispatchEvent(new WindowEvent(ManagerFrame.this, WindowEvent.WINDOW_CLOSING));
+            } else {
+                JPanel panel = null;
+                if (e.getSource() == jmit1) {
+                    panel = dp;
+                } else if (e.getSource() == jmit2) {
+                    panel = ep;
+                } else if (e.getSource() == jmit3) {
+                    panel = up;
+                }
+                contentPanel.removeAll();
+                contentPanel.add(panel);
+                contentPanel.revalidate();
+                contentPanel.repaint();
             }
-            else if (e.getSource() == jmit2) {
-                panel = ep;
-            }
-            else if (e.getSource() == jmit3) {
-                panel = up;
-            }
-            contentPanel.removeAll();
-            contentPanel.add(panel);
-            contentPanel.revalidate();
-            contentPanel.repaint();
         }
     }
 

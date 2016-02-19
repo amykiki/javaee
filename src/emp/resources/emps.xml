@@ -36,39 +36,39 @@
     <salary>12345.0</salary>  
     <depid>25</depid> 
   </emp>  
-  <emp>
-    <id>9</id>
-    <name>Sturgis Podmore</name>
-    <gender>MALE</gender>
-    <salary>8888.0</salary>
-    <depid>31</depid>
-  </emp>
-  <emp>
-    <id>10</id>
-    <name>Authur Weasley</name>
-    <gender>MALE</gender>
-    <salary>77777.0</salary>
-    <depid>27</depid>
-  </emp>
-  <emp>
-    <id>11</id>
-    <name>Bill Weasley</name>
-    <gender>MALE</gender>
-    <salary>5555.0</salary>
-    <depid>27</depid>
-  </emp>
-  <emp>
-    <id>12</id>
-    <name>Ron Weasley</name>
-    <gender>MALE</gender>
-    <salary>8888.0</salary>
-    <depid>24</depid>
-  </emp>
-  <emp>
-    <id>13</id>
-    <name>Ginny Weasley</name>
-    <gender>FEMALE</gender>
-    <salary>10000.0</salary>
-    <depid>24</depid>
-  </emp>
+  <emp> 
+    <id>9</id>  
+    <name>Sturgis Podmore</name>  
+    <gender>MALE</gender>  
+    <salary>8888.0</salary>  
+    <depid>31</depid> 
+  </emp>  
+  <emp> 
+    <id>10</id>  
+    <name>Authur Weasley</name>  
+    <gender>MALE</gender>  
+    <salary>77777.0</salary>  
+    <depid>27</depid> 
+  </emp>  
+  <emp> 
+    <id>11</id>  
+    <name>Bill Weasley</name>  
+    <gender>MALE</gender>  
+    <salary>5555.0</salary>  
+    <depid>26</depid> 
+  </emp>  
+  <emp> 
+    <id>12</id>  
+    <name>Ron Weasley</name>  
+    <gender>MALE</gender>  
+    <salary>8888.0</salary>  
+    <depid>24</depid> 
+  </emp>  
+  <emp> 
+    <id>13</id>  
+    <name>Ginny Weasley</name>  
+    <gender>FEMALE</gender>  
+    <salary>10000.0</salary>  
+    <depid>24</depid> 
+  </emp> 
 </emps>
