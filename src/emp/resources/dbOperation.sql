@@ -60,5 +60,8 @@ SELECT * FROM user_tb WHERE USER_NAME = 'kevin';
 DELETE FROM user_tb WHERE USER_NAME = 'kevin2';
 UPDATE user_tb SET PASSWORD = '8888', NICKNAME = '超级管理员', SALARY = 9898.98 WHERE USER_NAME = 'admin';
 
+DESC dep_tb;
+SELECT * FROM dep_tb;
+
 
 

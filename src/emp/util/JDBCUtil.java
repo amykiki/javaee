@@ -50,5 +50,15 @@ public class JDBCUtil {
         }
     }
 
+    public static  void close(Connection conn, PreparedStatement ps) {
+        closePrestatement(ps);
+        closeConnection(conn);
+    }
+
+    public static  void close(Connection conn, PreparedStatement ps, ResultSet rs) {
+        closeResultSet(rs);
+        close(conn, ps);
+    }
+
 
 }

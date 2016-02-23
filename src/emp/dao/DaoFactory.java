@@ -7,4 +7,8 @@ public class DaoFactory {
     public static  IUserDao getUserDao() {
         return new UserDaoJDBC();
     }
+
+    public static IDepDao getDepDao() {
+        return new DepDaoJDBC();
+    }
 }

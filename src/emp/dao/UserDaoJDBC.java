@@ -40,13 +40,12 @@ public class UserDaoJDBC implements IUserDao {
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getNickname());
             ps.setDouble(4, user.getSalary());
-            System.out.println(ps.toString());
             rc = ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        close(conn, ps, rs);
+        JDBCUtil.close(conn, ps, rs);
         if (rc == 1) {
             return true;
         } else {
@@ -67,7 +66,7 @@ public class UserDaoJDBC implements IUserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        close(conn, ps);
+        JDBCUtil.close(conn, ps);
     }
 
     @Override
@@ -93,12 +92,11 @@ public class UserDaoJDBC implements IUserDao {
             ps.setString(2, user.getNickname());
             ps.setDouble(3, user.getSalary());
             ps.setString(4, user.getName());
-            System.out.println(ps.toString());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        close(conn, ps, rs);
+        JDBCUtil.close(conn, ps, rs);
     }
 
     @Override
@@ -117,7 +115,7 @@ public class UserDaoJDBC implements IUserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        close(conn, ps, rs);
+        JDBCUtil.close(conn, ps, rs);
         return u;
     }
 
@@ -138,7 +136,7 @@ public class UserDaoJDBC implements IUserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        close(conn, ps, rs);
+        JDBCUtil.close(conn, ps, rs);
         return uLists;
     }
 
@@ -172,7 +170,6 @@ public class UserDaoJDBC implements IUserDao {
             String sql = "select * from " + tbName + " where " + nameCOL + " = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, name);
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             return rs;
         } catch (SQLException e) {
@@ -185,15 +182,5 @@ public class UserDaoJDBC implements IUserDao {
         if (user == null || user.getName() == null || user.getName().equals("")) {
             throw new EmpException("User name is null, can't " + action + " user");
         }
-    }
-
-    private void close(Connection conn, PreparedStatement ps) {
-        JDBCUtil.closePrestatement(ps);
-        JDBCUtil.closeConnection(conn);
-    }
-
-    private void close(Connection conn, PreparedStatement ps, ResultSet rs) {
-        JDBCUtil.closeResultSet(rs);
-        close(conn, ps);
     }
 }
