@@ -35,12 +35,13 @@ public class DepDaoTest {
 //        Dep dep = new Dep("Gryffindor");
 //        Dep dep = new Dep("Slytherin");
 //        Dep dep = new Dep("Hufflepuff");
-        Dep dep = new Dep("Ravenclaw");
+//        Dep dep = new Dep("Ravenclaw");
 //        Dep dep = new Dep("Forbidden Forest");
 //        Dep dep = new Dep("Forbidden Forest");
-//        Dep dep = new Dep("Minister");
-//        Dep dep = new Dep("burrow");
-        assertTrue(dd.addDep(dep) > 0);
+        Dep dep = new Dep("Minister2");
+//        Dep dep = new Dep("burrow2");
+//        assertTrue(dd.addDep(dep) > 0);
+        System.out.println(dd.addDep(dep));
     }
 
     @Test

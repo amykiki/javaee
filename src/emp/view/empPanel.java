@@ -1,6 +1,8 @@
 package emp.view;
 
+import emp.dao.DaoFactory;
 import emp.dao.EmpDao;
+import emp.dao.IEmpDao;
 import emp.model.Dep;
 import emp.model.Emp;
 import emp.model.EmpException;
@@ -22,7 +24,7 @@ public class EmpPanel extends JPanel {
     private JButton     jb1, jb2, jb3, jbselect;
     private JPanel jp1, jp11, jp12, jp2, jp3;
     private JTextField jtf;
-    private EmpDao     ed;
+    private IEmpDao    ed;
     private JComboBox  jcb;
     private DepCombo   dcb;
     private DepCombo   diaDcb;
@@ -31,7 +33,7 @@ public class EmpPanel extends JPanel {
     private MyDialog   updateWin;
 
     public EmpPanel() {
-        ed = new EmpDao();
+        ed = DaoFactory.getEmpDao();
         this.setLayout(new BorderLayout());
 
         jlb1 = new JLabel("Employee Infomation Table");

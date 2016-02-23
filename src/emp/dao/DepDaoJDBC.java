@@ -3,6 +3,7 @@ package emp.dao;
 import emp.model.Dep;
 import emp.model.EmpException;
 import emp.util.JDBCUtil;
+import jdk.nashorn.internal.scripts.JD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,17 +43,11 @@ public class DepDaoJDBC implements IDepDao {
             String sql = "insert into " + tbName + " values(NULL,?)";
             ps = conn.prepareStatement(sql);
             ps.setString(1, dep.getName());
-            System.out.println(ps);
-            ps.executeUpdate();
-            rs = loadByName(dep.getName());
-            if (rs.next()) {
-                rc = rs.getInt(idCOL);
-            }
+            rc = JDBCUtil.getID(ps, rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         JDBCUtil.close(conn, ps, rs);
-        System.out.println(rc);
         return rc;
     }
 
@@ -60,26 +55,7 @@ public class DepDaoJDBC implements IDepDao {
     public boolean delDep(int id) throws EmpException {
         Dep dep = new Dep(id, "");
         checkDep(dep, "delete");
-        conn = JDBCUtil.getConnect();
-        int rc = 0;
-        try {
-            rs = loadById(id);
-            if (!rs.next()) {
-                throw new EmpException("Department id = " + id + " is not existed");
-            }
-            String sql = "delete from " + tbName + " where " + idCOL + " = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            rc = ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        JDBCUtil.close(conn, ps, rs);
-        if (rc == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return JDBCUtil.delRow(tbName, idCOL, id);
     }
 
     @Override
@@ -161,6 +137,7 @@ public class DepDaoJDBC implements IDepDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        JDBCUtil.close(conn, ps, rs);
         return depLists;
 
     }
@@ -177,18 +154,7 @@ public class DepDaoJDBC implements IDepDao {
     }
 
     private ResultSet loadById(int id) {
-        String    sql = "select * from " + tbName + " where " + idCOL + " = ?";
-        ResultSet rs  = null;
-        try {
-            conn = JDBCUtil.getConnect();
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return rs;
+        return JDBCUtil.loadById(tbName, idCOL, id);
     }
 
     private ResultSet loadByName(String name) {

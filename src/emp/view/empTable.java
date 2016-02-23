@@ -1,7 +1,6 @@
 package emp.view;
 
-import emp.dao.DepDao;
-import emp.dao.EmpDao;
+import emp.dao.*;
 import emp.model.Dep;
 import emp.model.Emp;
 import emp.model.EmpException;
@@ -15,12 +14,12 @@ import java.util.Vector;
  * Created by Amysue on 2016/2/17.
  */
 public class EmpTable extends DefaultTableModel{
-    private EmpDao ed;
-    private DepDao dd;
+    private IEmpDao ed;
+    private IDepDao dd;
 
     public EmpTable() {
-        ed = new EmpDao();
-        dd = new DepDao();
+        ed = DaoFactory.getEmpDao();
+        dd = DaoFactory.getDepDao();
 
         this.addColumn(EMPCOL.ID.name());
         this.addColumn(EMPCOL.NAME.name());

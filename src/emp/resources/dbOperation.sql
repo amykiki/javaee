@@ -63,5 +63,10 @@ UPDATE user_tb SET PASSWORD = '8888', NICKNAME = '超级管理员', SALARY = 989
 DESC dep_tb;
 SELECT * FROM dep_tb;
 
+DESC emp_tb;
+SELECT * FROM emp_tb;
+select count(*) from emp_tb where  DEP_ID = 3;
+SELECT * FROM emp_tb where 1=1 and EMP_NAME like '%Ron%';
+
 
 

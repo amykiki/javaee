@@ -1,6 +1,8 @@
 package emp.view;
 
+import emp.dao.DaoFactory;
 import emp.dao.DepDao;
+import emp.dao.IDepDao;
 import emp.model.Dep;
 
 import javax.swing.*;
@@ -10,10 +12,10 @@ import java.util.List;
  * Created by Amysue on 2016/2/17.
  */
 public class DepCombo extends DefaultComboBoxModel<Dep> {
-    private DepDao dd;
+    private IDepDao dd;
 
     public DepCombo(int allDep) {
-        dd = new DepDao();
+        dd = DaoFactory.getDepDao();
         if (allDep == 1) {
             this.addElement(new Dep(-1, "All"));
         }
