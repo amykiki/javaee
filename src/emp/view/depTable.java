@@ -4,6 +4,7 @@ import emp.dao.DepDao;
 import emp.dao.EmpDao;
 import emp.model.Dep;
 import emp.model.Emp;
+import emp.model.EmpException;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +32,7 @@ public class DepTable extends DefaultTableModel {
 
     }
 
-    public Dep removeDep(int row) {
+    public Dep removeDep(int row) throws EmpException{
         int id    = (int) getValueAt(row, DEPCOL.ID.getCode());
         int count = (int) getValueAt(row, DEPCOL.PEPCOUNT.getCode());
         Dep dep   = dd.load(id);
@@ -56,7 +57,7 @@ public class DepTable extends DefaultTableModel {
         this.addRow(data);
     }
 
-    public Dep addDep(String name) {
+    public Dep addDep(String name) throws EmpException{
         Dep dep = new Dep(name);
         int id  = dd.addDep(dep);
         dep.setId(id);
@@ -64,7 +65,7 @@ public class DepTable extends DefaultTableModel {
         return dep;
     }
 
-    public Dep updateDep(int row, String name) {
+    public Dep updateDep(int row, String name) throws EmpException{
         int id  = (int) getValueAt(row, DEPCOL.ID.getCode());
         Dep dep = new Dep(id, name);
         dd.updateDep(dep);

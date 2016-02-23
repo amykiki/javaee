@@ -5,11 +5,12 @@ import emp.model.EmpException;
 import emp.util.XmlUtil;
 import org.dom4j.Document;
 import org.dom4j.Element;
+import org.w3c.dom.NamedNodeMap;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao {
+public class UserDao implements IUserDao{
     private static final String xmlName = "user";
     private Document userDoc;
     private Element  rootNode;
@@ -23,7 +24,8 @@ public class UserDao {
         XmlUtil.write2Xml(XmlUtil.xmlUsers, userDoc);
     }
 
-    public boolean addUser(User user) {
+    @Override
+    public boolean addUser(User user) throws EmpException{
         checkUser(user, "add");
         User u1 = load(user.getName());
         if (u1 != null) {
@@ -35,6 +37,7 @@ public class UserDao {
         return true;
     }
 
+    @Override
     public void delUser(String name) {
         Element el = loadElem(name);
         if (el == null) {
@@ -46,7 +49,8 @@ public class UserDao {
 
     }
 
-    public void updateUser(User user) {
+    @Override
+    public void updateUser(User user) throws EmpException{
         checkUser(user, "update");
         Element el = loadElem(user.getName());
         el.element("name").setText(user.getName());
@@ -56,16 +60,18 @@ public class UserDao {
         write();
     }
 
-    public User load(String userName) {
+    @Override
+    public User load(String userName) throws EmpException{
         Element el = loadElem(userName);
         if (el != null) {
             User u = xml2User(el);
             return u;
         } else {
-            return null;
+            throw new EmpException("user " + userName + " is not exists");
         }
     }
 
+    @Override
     public List<User> loadLists() {
         List<Element> els = rootNode.selectNodes("/users/user");
         List<User> users = new ArrayList<>();
@@ -73,6 +79,21 @@ public class UserDao {
             users.add(xml2User(e));
         }
         return users;
+    }
+
+    @Override
+    public boolean login(String username, String password) throws EmpException{
+        User u = load(username);
+        if (u == null) {
+            throw new EmpException("User " + username + " is not existed");
+        } else {
+            String rightPwd = u.getPassword();
+            if (rightPwd.equals(password)) {
+                return true;
+            } else {
+                throw new EmpException("User " + username + " password is not right");
+            }
+        }
     }
 
     private Element loadElem(String userName) {
@@ -98,7 +119,7 @@ public class UserDao {
         newElem.addElement("salary").addText(String.valueOf(u.getSalary()));
     }
 
-    private void checkUser(User user, String action) {
+    private void checkUser(User user, String action) throws EmpException{
         if (user == null || user.getName() == null || user.getName().equals("")) {
             throw new EmpException("user name is null, can't " + action + " user");
         }

@@ -4,6 +4,7 @@ import emp.dao.DepDao;
 import emp.dao.EmpDao;
 import emp.model.Dep;
 import emp.model.Emp;
+import emp.model.EmpException;
 import emp.util.Gender;
 
 import javax.swing.table.DefaultTableModel;
@@ -71,7 +72,7 @@ public class EmpTable extends DefaultTableModel{
         }
     }
 
-    public int removeEmp(int row) {
+    public int removeEmp(int row) throws EmpException{
         String depName = getDepName(row);
         int depid = getDepId(depName);
         ed.delEmp(getId(row));
@@ -102,13 +103,13 @@ public class EmpTable extends DefaultTableModel{
         return 0;
     }
 
-    public void addEmp(Emp emp) {
+    public void addEmp(Emp emp) throws EmpException{
         int id = ed.addEmp(emp);
         emp.setId(id);
         addEmpRow(emp);
     }
 
-    public void updateEmp(Emp emp, int selectRow) {
+    public void updateEmp(Emp emp, int selectRow) throws EmpException{
         ed.updateEmp(emp);
         setValueAt(emp.getName(), selectRow, EMPCOL.NAME.getCode());
         setValueAt(emp.getGender(), selectRow, EMPCOL.GENDER.getCode());

@@ -128,12 +128,16 @@ public class EmpPanel extends JPanel {
             } else if (e.getSource() == jb2) {
                 updateDialog();
             } else if (e.getSource() == jb3) {
-                delEmp();
+                try {
+                    delEmp();
+                } catch (EmpException e1) {
+                    ManagerFrame.showMsg(EmpPanel.this, e1.getMessage());
+                }
             }
         }
     }
 
-    private void delEmp() {
+    private void delEmp() throws EmpException{
         int[] rows = jt.getSelectedRows();
         if (rows.length == 0) {
             ManagerFrame.showMsg(this, "You haven't select Empoloyee.");
@@ -320,7 +324,7 @@ public class EmpPanel extends JPanel {
             this.setVisible(false);
         }
 
-        private Emp getData() {
+        private Emp getData() throws EmpException{
             Emp emp = new Emp();
             if (diaAction.equals("update")) {
                 int id = oldEmp.getId();

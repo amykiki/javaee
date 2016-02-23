@@ -90,10 +90,14 @@ public class DepPanel extends JPanel {
         int count = 0;
         for (int row : rows) {
             row -= count;
-            Dep dep = dtm.removeDep(row);
-            if (dep != null) {
-                count++;
-                ePanel.refresh(dep, "del");
+            try {
+                Dep dep = dtm.removeDep(row);
+                if (dep != null) {
+                    count++;
+                    ePanel.refresh(dep, "del");
+                }
+            } catch (EmpException e) {
+                ManagerFrame.showMsg(this, e.getMessage());
             }
         }
     }
@@ -192,7 +196,7 @@ public class DepPanel extends JPanel {
             }
         }
 
-        private String getInfo() {
+        private String getInfo() throws EmpException{
             String str = jtf2.getText();
             if (!str.matches("^[a-zA-Z]\\w*(?:\\s\\w+)*")) {
                 throw new EmpException("Dept name must begins with charaters");

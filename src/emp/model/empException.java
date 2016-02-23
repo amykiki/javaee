@@ -3,7 +3,7 @@ package emp.model;
 /**
  * Created by Amysue on 2016/1/30.
  */
-public class EmpException extends RuntimeException {
+public class EmpException extends Exception {
     public EmpException() {
         super();
     }

@@ -1,6 +1,9 @@
 package emp.view;
 
+import emp.dao.DaoFactory;
+import emp.dao.IUserDao;
 import emp.dao.UserDao;
+import emp.model.EmpException;
 import emp.model.User;
 
 import javax.swing.*;
@@ -56,21 +59,17 @@ public class LoginFrame extends JFrame {
     }
 
     private void LoginManager() {
-        String  name = jtName.getText().trim();
-        UserDao ud   = new UserDao();
-        User    u    = ud.load(name);
-        if (u == null) {
-            ManagerFrame.showMsg(this, "User " + name + " is not existed");
-        } else {
-            String pwd      = u.getPassword();
-            String inputPwd = String.valueOf(jpf.getPassword());
-            if (pwd.equals(inputPwd)) {
+        String   name     = jtName.getText().trim();
+        String   inputPwd = String.valueOf(jpf.getPassword());
+        IUserDao ud       = DaoFactory.getUserDao();
+        try {
+            if (ud.login(name, inputPwd)) {
                 this.setVisible(false);
-                ManagerFrame mf = new ManagerFrame(u, 900, 700);
+                ManagerFrame mf = new ManagerFrame(ud.load(name), 900, 700);
                 mf.start();
-            } else {
-                ManagerFrame.showMsg(this, "User " + name + " password is not right");
             }
+        } catch (EmpException e) {
+            ManagerFrame.showMsg(this, e.getMessage());
         }
     }
 

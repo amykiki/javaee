@@ -1,6 +1,9 @@
 package emp.view;
 
+import emp.dao.DaoFactory;
+import emp.dao.IUserDao;
 import emp.dao.UserDao;
+import emp.model.EmpException;
 import emp.model.User;
 
 import javax.swing.table.DefaultTableModel;
@@ -11,10 +14,10 @@ import java.util.Vector;
  * Created by Amysue on 2016/2/2.
  */
 public class UserTable extends DefaultTableModel {
-    private UserDao ud;
+    private IUserDao ud;
 
     public UserTable() {
-        ud = new UserDao();
+        ud = DaoFactory.getUserDao();
 
         this.addColumn("name");
         this.addColumn("password");
@@ -32,7 +35,7 @@ public class UserTable extends DefaultTableModel {
         }
     }
 
-    public boolean addRowByTable(String[] data) {
+    public boolean addRowByTable(String[] data) throws EmpException{
         User u = data2User(data);
         if (ud.addUser(u)) {
             this.addRow(data);
@@ -41,7 +44,7 @@ public class UserTable extends DefaultTableModel {
         return false;
     }
 
-    public boolean updateRowByTable(String[] data, int row) {
+    public boolean updateRowByTable(String[] data, int row) throws EmpException{
         for (int i = 0; i < UserPanel.USER_COL; i++) {
             this.setValueAt(data[i], row, i);
         }

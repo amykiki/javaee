@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Amysue on 2016/2/17.
  */
-public class EmpDao {
+public class EmpDao implements IEmpDao{
     private Document empDoc;
     private Element  rootNode;
 
@@ -26,7 +26,8 @@ public class EmpDao {
         XmlUtil.write2Xml(XmlUtil.xmlEmps, empDoc);
     }
 
-    public int addEmp(Emp emp) {
+    @Override
+    public int addEmp(Emp emp) throws EmpException{
         checkEmp(emp, "add");
         int id = getCount() + 1;
         Element nEmp = rootNode.addElement("emp");
@@ -40,7 +41,8 @@ public class EmpDao {
         return id;
     }
 
-    public boolean delEmp(int id) {
+    @Override
+    public boolean delEmp(int id) throws EmpException{
         Emp emp = new Emp(id);
         Element e = checkEmp(emp, "del");
         if (e == null) {
@@ -51,7 +53,8 @@ public class EmpDao {
         return true;
     }
 
-    public boolean updateEmp(Emp emp) {
+    @Override
+    public boolean updateEmp(Emp emp) throws EmpException{
         Element e = checkEmp(emp, "update");
         if (e == null) {
             return false;
@@ -64,7 +67,8 @@ public class EmpDao {
         return true;
     }
 
-    public Emp loadEmp(int id) {
+    @Override
+    public Emp loadEmp(int id) throws EmpException{
         Emp emp = new Emp(id);
         Element e = checkEmp(emp, "load");
         if (e == null) {
@@ -74,12 +78,14 @@ public class EmpDao {
         return emp;
     }
 
+    @Override
     public List<Emp> loadList() {
         String xpath = "/emps/emp";
         List<Emp> emps = eles2Emps(xpath);
         return emps;
     }
 
+    @Override
     public int loadByDepId(int depid) {
         String xpath = "/emps/emp[depid=" + depid + "]";
         int num = rootNode.selectNodes(xpath).size();
@@ -96,7 +102,7 @@ public class EmpDao {
         return emp;
     }
 
-    private Element checkEmp(Emp emp, String action) {
+    private Element checkEmp(Emp emp, String action) throws EmpException{
         if (emp == null) {
             throw new EmpException("Null Emp Object, can't " + action + " Emp.");
         } else if (action.equals("add")) {
@@ -122,6 +128,7 @@ public class EmpDao {
         return e;
     }
 
+    @Override
     public List<Emp> multiLoad(int depid, String name) {
         String xpath = "/emps/emp[";
         String str1 = "";

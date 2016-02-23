@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Amysue on 2016/2/14.
  */
-public class DepDao {
+public class DepDao implements IDepDao{
     private Document depDoc;
     private Element  rootNode;
 
@@ -25,7 +25,8 @@ public class DepDao {
         XmlUtil.write2Xml(XmlUtil.xmlDeps, depDoc);
     }
 
-    public int addDep(Dep dep) {
+    @Override
+    public int addDep(Dep dep) throws EmpException{
         checkDep(dep, "add");
         String  name = dep.getName();
         Element e    = loadByName(name);
@@ -40,7 +41,8 @@ public class DepDao {
         return id;
     }
 
-    public boolean updateDep(Dep dep) {
+    @Override
+    public boolean updateDep(Dep dep) throws EmpException{
         Element e = checkDep(dep, "update");
         if (e == null) {
             return false;
@@ -55,7 +57,8 @@ public class DepDao {
         return true;
     }
 
-    public boolean delDep(int id) {
+    @Override
+    public boolean delDep(int id) throws EmpException{
         Dep     dep = new Dep(id, "");
         Element e   = checkDep(dep, "delete");
         if (e == null) {
@@ -66,6 +69,7 @@ public class DepDao {
         return true;
     }
 
+    @Override
     public Dep load(int id) {
         Element e = loadById(id);
         if (e != null) {
@@ -76,6 +80,7 @@ public class DepDao {
         }
     }
 
+    @Override
     public Dep load(String name) {
         Element e = loadByName(name);
         if (e != null) {
@@ -86,6 +91,7 @@ public class DepDao {
         }
     }
 
+    @Override
     public List<Dep> loadLists() {
         List<Element> eles = rootNode.selectNodes("/deps/dep");
         List<Dep> deps = new ArrayList<>();
@@ -95,7 +101,7 @@ public class DepDao {
         return deps;
     }
 
-    private Element checkDep(Dep dep, String action) {
+    private Element checkDep(Dep dep, String action) throws EmpException{
         if (dep == null) {
             throw new EmpException("null Dep object, can't " + action + " Dept.");
         } else if (action.equals("add")) {

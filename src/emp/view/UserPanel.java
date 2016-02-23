@@ -1,5 +1,7 @@
 package emp.view;
 
+import emp.model.EmpException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -240,20 +242,28 @@ public class UserPanel extends JPanel {
         }
 
         private void addUser(String[] data) {
-            if (tbModel.addRowByTable(data)) {
-                resetUser();
-                MyDialog.this.setVisible(false);
-            } else {
-                showMsg("user " + data[0] + " has already be added");
-                return;
+            try {
+                if (tbModel.addRowByTable(data)) {
+                    resetUser();
+                    MyDialog.this.setVisible(false);
+                } else {
+                    showMsg("user " + data[0] + " has already be added");
+                    return;
+                }
+            } catch (EmpException e) {
+                ManagerFrame.showMsg(this, e.getMessage());
             }
 
 
         }
 
         private void updateUser(String[] data) {
-            tbModel.updateRowByTable(data, selectRow);
-            MyDialog.this.setVisible(false);
+            try {
+                tbModel.updateRowByTable(data, selectRow);
+                MyDialog.this.setVisible(false);
+            } catch (EmpException e) {
+                ManagerFrame.showMsg(this, e.getMessage());
+            }
         }
 
 
