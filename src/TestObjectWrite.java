@@ -42,7 +42,6 @@ public class TestObjectWrite {
                     ois.close();
                 }
             } catch (IOException e) {
-
                 e.printStackTrace();
             }
         }

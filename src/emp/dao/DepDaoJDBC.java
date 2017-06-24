@@ -3,7 +3,6 @@ package emp.dao;
 import emp.model.Dep;
 import emp.model.EmpException;
 import emp.util.JDBCUtil;
-import jdk.nashorn.internal.scripts.JD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
