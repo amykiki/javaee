@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class App {
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(2);
-        Processor processor = new Processor();
+        final Processor processor = new Processor();
         executor.submit(new Runnable() {
             @Override
             public void run() {
