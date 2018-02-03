@@ -13,7 +13,7 @@ public class App {
     private BlockingQueue<Integer> queue = new ArrayBlockingQueue<Integer>(10);
 
     public static void main(String[] args) {
-        App app = new App();
+        final App app = new App();
         ExecutorService executor = Executors.newFixedThreadPool(2);
         executor.submit(new Runnable() {
             @Override

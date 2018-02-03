@@ -34,7 +34,7 @@ public class Server {
 
         try {
             ss = new ServerSocket(PORT);
-            clients = new ConcurrentHashMap<>(new HashMap<>());
+            clients = new ConcurrentHashMap<>(new HashMap<String, ServerThread>());
             while (true) {
                 sClient = ss.accept();
                 ServerThread st = new ServerThread(sClient);
