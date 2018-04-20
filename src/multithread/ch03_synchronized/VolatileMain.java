@@ -9,7 +9,8 @@ package multithread.ch03_synchronized;
  * --------  ---------  --------------------------
  */
 public class VolatileMain {
-    public static void main(String[] args) {
+    public static Foo GF;
+    public static void testVolatile1() {
         VolatileRunnable vr = new VolatileRunnable();
 
         Thread t0 = new Thread(vr);
@@ -41,5 +42,34 @@ public class VolatileMain {
 //        Thread-1:----10
 //        Thread-3:----8
 //        Thread-2:----8
+    }
+
+    public static void test2() {
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Foo f = new Foo();
+                f.field = "Test";
+                GF = f;
+            }
+        });
+
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Foo r1 = GF;
+                if (r1 != null) {
+                    String b1 = r1.field;
+                    System.out.println(b1);
+                }
+            }
+        });
+
+        t1.run();
+        t2.run();
+    }
+    public static void main(String[] args) {
+        test2();
+
     }
 }

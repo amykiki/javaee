@@ -18,14 +18,15 @@ public class VolatileRunnable implements Runnable{
     public void run() {
 //        synchronized (this) {
             a = a + 1;
-            System.out.println(Thread.currentThread().getName() + ":----" + a);
+            System.out.println(Thread.currentThread().getName() + "【1】:----" + a);
             try {
                 Thread.sleep(100);
+                System.out.println(Thread.currentThread().getName() + "【2】:----" + a);
                 a = a + 2;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println(Thread.currentThread().getName() + ":----" + a);
+            System.out.println(Thread.currentThread().getName() + "【3】:----" + a);
 //        }
     }
 }
